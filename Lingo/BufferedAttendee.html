@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>module Lingo::Version - lingo Application documentation (v1.8.1)</title>
+<title>class Lingo::BufferedAttendee - lingo Application documentation (v1.8.1)</title>
 
 <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
 
@@ -20,7 +20,7 @@
 <script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
 
 
-<body id="top" class="module">
+<body id="top" class="class">
 <nav id="metadata">
   <nav id="home-section" class="section">
   <h3 class="section-header">
@@ -47,7 +47,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>lib/lingo/version.rb
+    <li>lib/lingo/buffered_attendee.rb
   </ul>
 </nav>
 
@@ -56,7 +56,13 @@
 
   <div id="class-metadata">
     
-    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="Attendee.html">Lingo::Attendee</a>
+  
+</nav>
+
     
     <!-- Method Quickref -->
 <nav id="method-list-section" class="section">
@@ -64,9 +70,17 @@
 
   <ul class="link-list">
     
-    <li><a href="#method-c-to_a">::to_a</a>
+    <li><a href="#method-c-new">::new</a>
     
-    <li><a href="#method-c-to_s">::to_s</a>
+    <li><a href="#method-i-deferred_insert">#deferred_insert</a>
+    
+    <li><a href="#method-i-forward_buffer">#forward_buffer</a>
+    
+    <li><a href="#method-i-process">#process</a>
+    
+    <li><a href="#method-i-process_buffer">#process_buffer</a>
+    
+    <li><a href="#method-i-process_buffer-3F">#process_buffer?</a>
     
   </ul>
 </nav>
@@ -220,7 +234,7 @@
 </nav>
 
 <div id="documentation">
-  <h1 class="module">module Lingo::Version</h1>
+  <h1 class="class">class Lingo::BufferedAttendee</h1>
 
   <div id="description" class="description">
     
@@ -240,17 +254,7 @@
       <h3 class="section-header">Constants</h3>
       <dl>
       
-        <dt id="MAJOR">MAJOR
-        
-        <dd class="description">
-        
-      
-        <dt id="MINOR">MINOR
-        
-        <dd class="description">
-        
-      
-        <dt id="TINY">TINY
+        <dt id="BufferInsert">BufferInsert
         
         <dd class="description">
         
@@ -267,67 +271,205 @@
       <h3 class="section-header">Public Class Methods</h3>
 
     
-      <div id="method-c-to_a" class="method-detail ">
+      <div id="method-c-new" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">to_a</span><span
-            class="method-args">()</span>
+          <span class="method-name">new</span><span
+            class="method-args">(config, lingo)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
 
         <div class="method-description">
           
-          <p>Returns array representation.</p>
+          
           
 
           
-          <div class="method-source-code" id="to_a-source">
-            <pre><span class="ruby-comment"># File lib/lingo/version.rb, line 12</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_a</span>
-  [<span class="ruby-constant">MAJOR</span>, <span class="ruby-constant">MINOR</span>, <span class="ruby-constant">TINY</span>]
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/lingo/buffered_attendee.rb, line 32</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">config</span>, <span class="ruby-identifier">lingo</span>)
+  <span class="ruby-ivar">@buffer</span>, <span class="ruby-ivar">@inserts</span> = [], []
+  <span class="ruby-keyword">super</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- to_a-source -->
+          </div><!-- new-source -->
           
         </div>
 
         
 
         
-      </div><!-- to_a-method -->
-
-    
-      <div id="method-c-to_s" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">to_s</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Short-cut for version string.</p>
-          
-
-          
-          <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/lingo/version.rb, line 17</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
-  <span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">'.'</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- to_s-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- to_s-method -->
+      </div><!-- new-method -->
 
     
     </section><!-- public-class-method-details -->
+  
+     <section id="protected-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Protected Instance Methods</h3>
+
+    
+      <div id="method-i-process" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">process</span><span
+            class="method-args">(obj)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="process-source">
+            <pre><span class="ruby-comment"># File lib/lingo/buffered_attendee.rb, line 39</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process</span>(<span class="ruby-identifier">obj</span>)
+  <span class="ruby-ivar">@buffer</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">obj</span>)
+  <span class="ruby-identifier">process_buffer</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">process_buffer?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- process-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- process-method -->
+
+    
+    </section><!-- protected-instance-method-details -->
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Private Instance Methods</h3>
+
+    
+      <div id="method-i-deferred_insert" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">deferred_insert</span><span
+            class="method-args">(pos, obj)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="deferred_insert-source">
+            <pre><span class="ruby-comment"># File lib/lingo/buffered_attendee.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">deferred_insert</span>(<span class="ruby-identifier">pos</span>, <span class="ruby-identifier">obj</span>)
+  <span class="ruby-ivar">@inserts</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">BufferInsert</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">pos</span>, <span class="ruby-identifier">obj</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- deferred_insert-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- deferred_insert-method -->
+
+    
+      <div id="method-i-forward_buffer" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">forward_buffer</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="forward_buffer-source">
+            <pre><span class="ruby-comment"># File lib/lingo/buffered_attendee.rb, line 46</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">forward_buffer</span>
+  <span class="ruby-ivar">@inserts</span>.<span class="ruby-identifier">sort_by!</span>(&amp;<span class="ruby-value">:position</span>).<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-ivar">@buffer</span>.<span class="ruby-identifier">insert</span>(<span class="ruby-identifier">i</span>.<span class="ruby-identifier">position</span>, <span class="ruby-identifier">i</span>.<span class="ruby-identifier">object</span>)
+  }.<span class="ruby-identifier">clear</span>
+
+  <span class="ruby-ivar">@buffer</span>.<span class="ruby-identifier">each</span>(&amp;<span class="ruby-identifier">method</span>(<span class="ruby-value">:forward</span>)).<span class="ruby-identifier">clear</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- forward_buffer-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- forward_buffer-method -->
+
+    
+      <div id="method-i-process_buffer" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">process_buffer</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="process_buffer-source">
+            <pre><span class="ruby-comment"># File lib/lingo/buffered_attendee.rb, line 58</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_buffer</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- process_buffer-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- process_buffer-method -->
+
+    
+      <div id="method-i-process_buffer-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">process_buffer?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="process_buffer-3F-source">
+            <pre><span class="ruby-comment"># File lib/lingo/buffered_attendee.rb, line 54</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_buffer?</span>
+  <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- process_buffer-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- process_buffer-3F-method -->
+
+    
+    </section><!-- private-instance-method-details -->
   
   </section><!-- 5Buntitled-5D -->
 
