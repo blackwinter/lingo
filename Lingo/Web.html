@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>module Lingo::Version - lingo Application documentation (v1.8.3.pre11)</title>
+<title>class Lingo::Web - lingo Application documentation (v1.8.3.pre11)</title>
 
 <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
 
@@ -20,7 +20,7 @@
 <script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
 
 
-<body id="top" class="module">
+<body id="top" class="class">
 <nav id="metadata">
   <nav id="home-section" class="section">
   <h3 class="section-header">
@@ -47,7 +47,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>lib/lingo/version.rb
+    <li>lib/lingo/web.rb
   </ul>
 </nav>
 
@@ -56,7 +56,13 @@
 
   <div id="class-metadata">
     
-    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="App.html">Lingo::App</a>
+  
+</nav>
+
     
     <!-- Method Quickref -->
 <nav id="method-list-section" class="section">
@@ -64,9 +70,11 @@
 
   <ul class="link-list">
     
-    <li><a href="#method-c-to_a">::to_a</a>
+    <li><a href="#method-i-doit">#doit</a>
     
-    <li><a href="#method-c-to_s">::to_s</a>
+    <li><a href="#method-i-t">#t</a>
+    
+    <li><a href="#method-i-url_for">#url_for</a>
     
   </ul>
 </nav>
@@ -234,7 +242,7 @@
 </nav>
 
 <div id="documentation">
-  <h1 class="module">module Lingo::Version</h1>
+  <h1 class="class">class Lingo::Web</h1>
 
   <div id="description" class="description">
     
@@ -254,17 +262,12 @@
       <h3 class="section-header">Constants</h3>
       <dl>
       
-        <dt id="MAJOR">MAJOR
+        <dt id="LANGS">LANGS
         
         <dd class="description">
         
       
-        <dt id="MINOR">MINOR
-        
-        <dd class="description">
-        
-      
-        <dt id="TINY">TINY
+        <dt id="LINGO">LINGO
         
         <dd class="description">
         
@@ -277,14 +280,14 @@
 
     <!-- Methods -->
     
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="method-c-to_a" class="method-detail ">
+      <div id="method-i-doit" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">to_a</span><span
+          <span class="method-name">doit</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
@@ -292,56 +295,96 @@
 
         <div class="method-description">
           
-          <p>Returns array representation.</p>
+          
           
 
           
-          <div class="method-source-code" id="to_a-source">
-            <pre><span class="ruby-comment"># File lib/lingo/version.rb, line 12</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_a</span>
-  [<span class="ruby-constant">MAJOR</span>, <span class="ruby-constant">MINOR</span>, <span class="ruby-constant">TINY</span>]
+          <div class="method-source-code" id="doit-source">
+            <pre><span class="ruby-comment"># File lib/lingo/web.rb, line 77</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">doit</span>
+  <span class="ruby-ivar">@r</span> = <span class="ruby-constant">LINGO</span>[<span class="ruby-ivar">@l</span>].<span class="ruby-identifier">talk</span>(<span class="ruby-ivar">@q</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">_</span><span class="ruby-operator">|</span> <span class="ruby-identifier">_</span> } <span class="ruby-keyword">if</span> <span class="ruby-ivar">@q</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@q</span>.<span class="ruby-identifier">empty?</span>
+
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:f</span>]
+    <span class="ruby-keyword">when</span> <span class="ruby-string">'json'</span>
+      <span class="ruby-identifier">to_json</span>(<span class="ruby-ivar">@q</span>, <span class="ruby-ivar">@r</span>)
+    <span class="ruby-keyword">when</span> <span class="ruby-string">'text'</span>
+      <span class="ruby-ivar">@r</span> <span class="ruby-operator">&amp;&amp;</span>  <span class="ruby-ivar">@r</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n&quot;</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-ivar">@r</span> <span class="ruby-operator">&amp;&amp;=</span> <span class="ruby-ivar">@r</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n&quot;</span>)
+      <span class="ruby-identifier">erb</span> <span class="ruby-value">:index</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- to_a-source -->
+          </div><!-- doit-source -->
           
         </div>
 
         
 
         
-      </div><!-- to_a-method -->
+      </div><!-- doit-method -->
 
     
-      <div id="method-c-to_s" class="method-detail ">
+      <div id="method-i-t" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">to_s</span><span
-            class="method-args">()</span>
+          <span class="method-name">t</span><span
+            class="method-args">(*t)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
 
         <div class="method-description">
           
-          <p>Short-cut for version string.</p>
+          
           
 
           
-          <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/lingo/version.rb, line 17</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
-  <span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">'.'</span>) <span class="ruby-operator">+</span> <span class="ruby-string">'.pre11'</span>
+          <div class="method-source-code" id="t-source">
+            <pre><span class="ruby-comment"># File lib/lingo/web.rb, line 72</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">t</span>(*<span class="ruby-identifier">t</span>)
+  (<span class="ruby-identifier">i</span> = <span class="ruby-constant">UILANGS</span>.<span class="ruby-identifier">index</span>(<span class="ruby-ivar">@uilang</span>)) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">t</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">t</span>.<span class="ruby-identifier">first</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- to_s-source -->
+          </div><!-- t-source -->
           
         </div>
 
         
 
         
-      </div><!-- to_s-method -->
+      </div><!-- t-method -->
 
     
-    </section><!-- public-class-method-details -->
+      <div id="method-i-url_for" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">url_for</span><span
+            class="method-args">(path)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="url_for-source">
+            <pre><span class="ruby-comment"># File lib/lingo/web.rb, line 68</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">url_for</span>(<span class="ruby-identifier">path</span>)
+  <span class="ruby-node">&quot;#{request.script_name}#{path}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- url_for-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- url_for-method -->
+
+    
+    </section><!-- public-instance-method-details -->
   
   </section><!-- 5Buntitled-5D -->
 

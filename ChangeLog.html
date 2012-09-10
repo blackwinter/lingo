@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>ChangeLog - lingo Application documentation (v1.8.1)</title>
+<title>ChangeLog - lingo Application documentation (v1.8.3.pre11)</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -67,6 +67,8 @@
   
     <li><a href="./Lingo/AgendaItem.html">Lingo::AgendaItem</a>
   
+    <li><a href="./Lingo/App.html">Lingo::App</a>
+  
     <li><a href="./Lingo/Attendee.html">Lingo::Attendee</a>
   
     <li><a href="./Lingo/Attendee/Abbreviator.html">Lingo::Attendee::Abbreviator</a>
@@ -87,7 +89,9 @@
   
     <li><a href="./Lingo/Attendee/Sequencer.html">Lingo::Attendee::Sequencer</a>
   
-    <li><a href="./Lingo/Attendee/Sequencer/WordSequence.html">Lingo::Attendee::Sequencer::WordSequence</a>
+    <li><a href="./Lingo/Attendee/Stemmer.html">Lingo::Attendee::Stemmer</a>
+  
+    <li><a href="./Lingo/Attendee/Stemmer/Porter.html">Lingo::Attendee::Stemmer::Porter</a>
   
     <li><a href="./Lingo/Attendee/Synonymer.html">Lingo::Attendee::Synonymer</a>
   
@@ -105,11 +109,13 @@
   
     <li><a href="./Lingo/Attendee/WordSearcher.html">Lingo::Attendee::WordSearcher</a>
   
+    <li><a href="./Lingo/BackendNotAvailableError.html">Lingo::BackendNotAvailableError</a>
+  
+    <li><a href="./Lingo/BackendNotFoundError.html">Lingo::BackendNotFoundError</a>
+  
     <li><a href="./Lingo/BufferedAttendee.html">Lingo::BufferedAttendee</a>
   
     <li><a href="./Lingo/CLI.html">Lingo::CLI</a>
-  
-    <li><a href="./Lingo/Cachable.html">Lingo::Cachable</a>
   
     <li><a href="./Lingo/Call.html">Lingo::Call</a>
   
@@ -147,11 +153,15 @@
   
     <li><a href="./Lingo/Database/Source/WordClass.html">Lingo::Database::Source::WordClass</a>
   
+    <li><a href="./Lingo/DatabaseError.html">Lingo::DatabaseError</a>
+  
     <li><a href="./Lingo/FileNotFoundError.html">Lingo::FileNotFoundError</a>
   
     <li><a href="./Lingo/InvalidDatabaseConfigError.html">Lingo::InvalidDatabaseConfigError</a>
   
     <li><a href="./Lingo/Language.html">Lingo::Language</a>
+  
+    <li><a href="./Lingo/Language/Char.html">Lingo::Language::Char</a>
   
     <li><a href="./Lingo/Language/Dictionary.html">Lingo::Language::Dictionary</a>
   
@@ -171,17 +181,21 @@
   
     <li><a href="./Lingo/MissingConfigError.html">Lingo::MissingConfigError</a>
   
+    <li><a href="./Lingo/NameNotFoundError.html">Lingo::NameNotFoundError</a>
+  
     <li><a href="./Lingo/NoDatabaseConfigError.html">Lingo::NoDatabaseConfigError</a>
   
     <li><a href="./Lingo/NoWritableStoreError.html">Lingo::NoWritableStoreError</a>
   
-    <li><a href="./Lingo/Reportable.html">Lingo::Reportable</a>
+    <li><a href="./Lingo/ShowProgress.html">Lingo::ShowProgress</a>
   
     <li><a href="./Lingo/SourceFileNotFoundError.html">Lingo::SourceFileNotFoundError</a>
   
+    <li><a href="./Lingo/Srv.html">Lingo::Srv</a>
+  
     <li><a href="./Lingo/Version.html">Lingo::Version</a>
   
-    <li><a href="./String.html">String</a>
+    <li><a href="./Lingo/Web.html">Lingo::Web</a>
   
   </ul>
 </nav>
@@ -192,6 +206,92 @@
 <div id="documentation" class="description">
   
 <h1 id="label-Revision+history+for+Lingo">Revision history for <a href="Lingo.html">Lingo</a></h1>
+
+<h2 id="label-1.8.3+%5Bunreleased%5D">1.8.3 [unreleased]</h2>
+<ul><li>
+<p>Fixed regression introduced in 1.8.2 where reading input from STDIN was no
+longer possible.</p>
+</li><li>
+<p>Fixed regression introduced in 1.8.2 where <a href="Lingo.html">Lingo</a>
+would no longer run on Ruby 1.9.2.</p>
+</li><li>
+<p>Fixed length limit handling for multibyte characters in SDBM store.</p>
+</li><li>
+<p>Fixed encoding issue in SDBM store.</p>
+</li><li>
+<p>Fixed issue with BOM in config files.</p>
+</li><li>
+<p>Modified character handling to accept <strong>any</strong> Unicode letter
+(<em>Alphabetical</em>) and digit (<em>Decimal Number</em>).</p>
+</li><li>
+<p>Modified Attendee::Tokenizer to use only hard-coded tokenization rules.</p>
+</li><li>
+<p>Modified Attendee::VectorFilter’s <code>lexicals</code> option to be
+case-sensitive.</p>
+</li><li>
+<p>Improved overall performance and memory usage; Attendee::Sequencer changed
+the order sequences are inserted into the stream.</p>
+</li><li>
+<p>Eliminated performance penalty caused by Attendee::Abbreviator.</p>
+</li><li>
+<p>Added <code>fields</code> option to Attendee::TextReader to cut off field
+labels; defaults to <code>true</code> in record (LIR) mode.</p>
+</li><li>
+<p>Added <code>skip</code> option to Attendee::TextReader to skip lines
+matching the given pattern.</p>
+</li><li>
+<p>Added <code>src</code> option to Attendee::VectorFilter to print “source”
+part of compounds.</p>
+</li><li>
+<p>Added <code>lingosrv</code> and <code>lingoweb</code> executables. The
+former provides a simple HTTP endpoint with JSON output; the latter serves
+a demo web interface.</p>
+</li><li>
+<p>Refactored internal caching.</p>
+</li><li>
+<p>Made dependency on Ruby version &gt;= 1.9.2 explicit.</p>
+</li><li>
+<p>Removed reporting facility (options ‘–perfmon’ and ‘–status’).</p>
+</li><li>
+<p>Learned ‘–profile’ option to collect profiling information while running.</p>
+</li><li>
+<p>Deprecated Language::Grammar option <code>compositum</code> (now
+<code>compound</code>), Config option <code>textreader</code> (now
+<code>text_reader</code>), and Attendee::TextReader option</p>
+
+<pre>+lir-record-pattern+ (now +records+); they will be removed in Lingo 1.9.</pre>
+</li></ul>
+
+<h2 id="label-1.8.2+%5B2012-04-19%5D">1.8.2 [2012-04-19]</h2>
+<ul><li>
+<p>Performance improvements regarding Attendee::VectorFilter’s (as well as
+Attendee::NonewordFilter’s) memory usage; set <code>sort: false</code> in
+the config.</p>
+</li><li>
+<p>Added Attendee::Stemmer (implementing Porter’s algorithm for suffix
+stripping).</p>
+</li><li>
+<p>Added progress reporting to Attendee::TextReader; set <code>progress:
+true</code> in the config.</p>
+</li><li>
+<p>Added directory and glob processing to Attendee::TextReader (new options
+<code>glob</code> and <code>recursive</code>).</p>
+</li><li>
+<p>Renamed Attendee::TextReader’s option <code>lir-record-pattern</code> to
+<code>records</code>.</p>
+</li><li>
+<p>Fixed Attendee::Debugger to forward all objects so it can be inserted
+between any two attendees in the config.</p>
+</li><li>
+<p>Fixed regression introduced in 1.8.0 where <a href="Lingo.html">Lingo</a>
+would not use existing compiled dictionary when source file is not present.</p>
+</li><li>
+<p>Fixed “invalid byte sequence in UTF-8” on Windows for SDBM store.</p>
+</li><li>
+<p>Enabled pluggable (compiled) dictionaries and storage backends.</p>
+</li><li>
+<p>Extensive internal refactoring and cleanup. (Finished for now.)</p>
+</li></ul>
 
 <h2 id="label-1.8.1+%5B2012-02-19%5D">1.8.1 [2012-02-19]</h2>
 <ul><li>
@@ -296,7 +396,7 @@ href="http://raa.ruby-lang.org/project/diff-lcs/">diff-lcs</a>).</p>
 </li><li>
 <p>Use <code>UNK</code> itself if it doesn’t have any lexicals.</p>
 </li><li>
-<p>Use compo form instead of word form when lexicalizing compositum entry for
+<p>Use compo form instead of word form when lexicalizing compound entry for
 multiword dictionaries.</p>
 </li><li>
 <p>LexicalHash#[] must use target (not source) form.</p>
@@ -307,7 +407,7 @@ multiword dictionaries.</p>
 </li><li>
 <p>Allow synonyms to be considered for multiword matching.</p>
 </li><li>
-<p>Don’t use compositum parts.</p>
+<p>Don’t use compound parts.</p>
 </li><li>
 <p>Introduced some (more or less arbitrary) line length limit. We can only
 store values of a certain length anyway (with SDBM). Entries exceeding this
@@ -540,16 +640,16 @@ Kennzeichnung</strong></p>
 
 <p>Der Decomposer kann bei Bedarf Komposita einer zusätzlichen Prüfung
 unterziehen. Ist der Schlüssel
-<code>de.lang:language/dictionary/compositum/skip-sequences</code>
-angegeben, der z.B. in der Form <code>skip-sequences: [ VS ]</code>
-definiert wird, wird zusätzlich geprüft, ob das Kompositum mit seinen
-Teilen diesen Wortklassen entspricht. Hiernach werden Komposita verworfen,
-die aus Verb-Substantiv-Kombination bestehen. Die Angabe des Parameters ist
+<code>de.lang:language/dictionary/compound/skip-sequences</code> angegeben,
+der z.B. in der Form <code>skip-sequences: [ VS ]</code> definiert wird,
+wird zusätzlich geprüft, ob das Kompositum mit seinen Teilen diesen
+Wortklassen entspricht. Hiernach werden Komposita verworfen, die aus
+Verb-Substantiv-Kombination bestehen. Die Angabe des Parameters ist
 optional. Zusätzlich werden bei Angabe des Schlüssels
-<code>de.lang:language/dictionary/compositum/append-wordclass</code>, der
-i.d.R einen ein Zeichen langen <a href="String.html">String</a> enthält,
-die durch Zerlegung erkannten Wortstämme markiert, in dem ihre Wortklasse
-das über diesen Schlüssel definierte Zeichen angehangen bekommt.</p>
+<code>de.lang:language/dictionary/compound/append-wordclass</code>, der
+i.d.R einen ein Zeichen langen String enthält, die durch Zerlegung
+erkannten Wortstämme markiert, in dem ihre Wortklasse das über diesen
+Schlüssel definierte Zeichen angehangen bekommt.</p>
 </li><li>
 <p><strong>Install.rb nicht mehr notwendig</strong></p>
 
@@ -583,7 +683,7 @@ Suchanfragen erhielten somit &lt;von|MU?&gt; als Antwort. Ab jetzt werden
 nur noch Kopien des Originals in den Cache übernommen, so das eine
 versehentliche Veränderung ausgeschlossen wird.</p>
 </li><li>
-<p><strong><a href="String.html">String</a> hat attr-Methode</strong></p>
+<p><strong>String hat attr-Methode</strong></p>
 
 <p>Die Methode <em>select</em> der Klasse <em>Dictionary</em> gibt die
 gefundenen Lexicals sortiert zurück. Bei der Verarbeitung von
@@ -592,9 +692,8 @@ werden, was dem Multiworder mitteilt, dass es eine Mehrwortgruppe der Länge
 5 gibt, die mit genau den drei nachgefragten Wörtern beginnt und der
 Multiworder eine weitere Abfrage machen soll. Klappt alles wunderbar, nur
 dass <em>select</em> nicht in der Lage ist ein Array aus Lexicals und
-Strings anhand des attr-Wertes zu sortieren. Jetzt hat die Klasse <a
-href="String.html">String</a> eines attr-Wert ” bekommen und die Sortierung
-funktioniert wieder.</p>
+Strings anhand des attr-Wertes zu sortieren. Jetzt hat die Klasse String
+eines attr-Wert ” bekommen und die Sortierung funktioniert wieder.</p>
 </li><li>
 <p><strong>Neues Synonym-Wörterbuch</strong></p>
 
@@ -802,7 +901,7 @@ hierfür ist <code>no-count='PUNCT,OTH_C'</code>.</p>
 <p><strong>Kompositum-Zerlegung mit weiterer Einschränkung</strong></p>
 
 <p>Ein weiterer Parameter ist für die Kompositumzerlegung hinzugekommen. Als
-Attribute des Tags <code>XML:dictionary/compositum</code> können jetzt
+Attribute des Tags <code>XML:dictionary/compound</code> können jetzt
 angegeben werden:</p>
 
 <pre>Attribut          Default    Funktion
