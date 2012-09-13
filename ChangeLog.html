@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>ChangeLog - lingo Application documentation (v1.8.3.pre11)</title>
+<title>ChangeLog - lingo Application documentation (v1.8.3.rc2)</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -155,6 +155,8 @@
   
     <li><a href="./Lingo/DatabaseError.html">Lingo::DatabaseError</a>
   
+    <li><a href="./Lingo/Debug.html">Lingo::Debug</a>
+  
     <li><a href="./Lingo/FileNotFoundError.html">Lingo::FileNotFoundError</a>
   
     <li><a href="./Lingo/InvalidDatabaseConfigError.html">Lingo::InvalidDatabaseConfigError</a>
@@ -234,6 +236,8 @@ the order sequences are inserted into the stream.</p>
 </li><li>
 <p>Eliminated performance penalty caused by Attendee::Abbreviator.</p>
 </li><li>
+<p>Added Russian language support (Julia Dorokhova, Thomas Müller).</p>
+</li><li>
 <p>Added <code>fields</code> option to Attendee::TextReader to cut off field
 labels; defaults to <code>true</code> in record (LIR) mode.</p>
 </li><li>
@@ -257,9 +261,9 @@ a demo web interface.</p>
 </li><li>
 <p>Deprecated Language::Grammar option <code>compositum</code> (now
 <code>compound</code>), Config option <code>textreader</code> (now
-<code>text_reader</code>), and Attendee::TextReader option</p>
-
-<pre>+lir-record-pattern+ (now +records+); they will be removed in Lingo 1.9.</pre>
+<code>text_reader</code>), and Attendee::TextReader option
+<code>lir-record-pattern</code> (now <code>records</code>); they will be
+removed in <a href="Lingo.html">Lingo</a> 1.9.</p>
 </li></ul>
 
 <h2 id="label-1.8.2+%5B2012-04-19%5D">1.8.2 [2012-04-19]</h2>

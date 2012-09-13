@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>class Lingo::DatabaseError - lingo Application documentation (v1.8.3.rc2)</title>
+<title>module Lingo::Debug - lingo Application documentation (v1.8.3.rc2)</title>
 
 <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
 
@@ -20,7 +20,7 @@
 <script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
 
 
-<body id="top" class="class">
+<body id="top" class="module">
 <nav id="metadata">
   <nav id="home-section" class="section">
   <h3 class="section-header">
@@ -47,7 +47,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>lib/lingo/error.rb
+    <li>lib/lingo/debug.rb
   </ul>
 </nav>
 
@@ -56,13 +56,7 @@
 
   <div id="class-metadata">
     
-    <nav id="parent-class-section" class="section">
-  <h3 class="section-header">Parent</h3>
-  
-  <p class="link"><a href="LingoError.html">Lingo::LingoError</a>
-  
-</nav>
-
+    
     
     <!-- Method Quickref -->
 <nav id="method-list-section" class="section">
@@ -70,9 +64,9 @@
 
   <ul class="link-list">
     
-    <li><a href="#method-c-new">::new</a>
+    <li><a href="#method-i-profile">#profile</a>
     
-    <li><a href="#method-i-to_s">#to_s</a>
+    <li><a href="#method-i-ps">#ps</a>
     
   </ul>
 </nav>
@@ -242,7 +236,7 @@
 </nav>
 
 <div id="documentation">
-  <h1 class="class">class Lingo::DatabaseError</h1>
+  <h1 class="module">module Lingo::Debug</h1>
 
   <div id="description" class="description">
     
@@ -257,102 +251,48 @@
     
 
     
-
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="PS_COLUMNS">PS_COLUMNS
+        
+        <dd class="description">
+        
+      
+        <dt id="PS_COMMAND">PS_COMMAND
+        
+        <dd class="description">
+        
+      
+        <dt id="PS_NO_HEADING">PS_NO_HEADING
+        
+        <dd class="description">
+        
+      
+        <dt id="PS_RE">PS_RE
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
     
-    <!-- Attributes -->
-    <section id="attribute-method-details" class="method-section section">
-      <h3 class="section-header">Attributes</h3>
 
-      
-      <div id="attribute-i-action" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">action</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        
-        
-        </div>
-      </div>
-      
-      <div id="attribute-i-err" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">err</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        
-        
-        </div>
-      </div>
-      
-      <div id="attribute-i-file" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">file</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        
-        
-        </div>
-      </div>
-      
-    </section><!-- attribute-method-details -->
     
 
     <!-- Methods -->
     
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
-
-    
-      <div id="method-c-new" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">new</span><span
-            class="method-args">(action, file, err)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/lingo/error.rb, line 76</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">file</span>, <span class="ruby-identifier">err</span>)
-  <span class="ruby-ivar">@action</span>, <span class="ruby-ivar">@file</span>, <span class="ruby-ivar">@err</span> = <span class="ruby-identifier">action</span>, <span class="ruby-identifier">file</span>, <span class="ruby-identifier">err</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- new-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- new-method -->
-
-    
-    </section><!-- public-class-method-details -->
-  
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
       <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="method-i-to_s" class="method-detail ">
+      <div id="method-i-profile" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">to_s</span><span
-            class="method-args">()</span>
+          <span class="method-name">profile</span><span
+            class="method-args">(base) { || ... }</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
@@ -363,19 +303,78 @@
           
 
           
-          <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/lingo/error.rb, line 80</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
-  <span class="ruby-node">&quot;An error occured when trying to #{action} `#{file}': #{err} (#{err.class})&quot;</span>
+          <div class="method-source-code" id="profile-source">
+            <pre><span class="ruby-comment"># File lib/lingo/debug.rb, line 46</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">profile</span>(<span class="ruby-identifier">base</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">yield</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">base</span>
+
+  <span class="ruby-identifier">require</span> <span class="ruby-string">'ruby-prof'</span>
+
+  <span class="ruby-identifier">result</span> = <span class="ruby-constant">RubyProf</span>.<span class="ruby-identifier">profile</span> { <span class="ruby-keyword">yield</span> }
+  <span class="ruby-identifier">result</span>.<span class="ruby-identifier">eliminate_methods!</span> [<span class="ruby-regexp">%r\b(?:Gem|HighLine)\b/</span>,
+    <span class="ruby-regexp">%r\A(?:Benchmark|FileUtils|Pathname|Util)\b/</span>]
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">base</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">IO</span>)
+    <span class="ruby-constant">RubyProf</span><span class="ruby-operator">::</span><span class="ruby-constant">FlatPrinter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">result</span>).<span class="ruby-identifier">print</span>(<span class="ruby-identifier">base</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir_p</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">base</span>))
+
+    <span class="ruby-identifier">mode</span> = <span class="ruby-constant">ENV</span>[<span class="ruby-string">'RUBY_PROF_MEASURE_MODE'</span>]
+    <span class="ruby-identifier">base</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;-#{mode}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">mode</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">mode</span>.<span class="ruby-identifier">empty?</span>
+
+    {
+      <span class="ruby-value">:txt</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:FlatPrinter</span>,
+      <span class="ruby-value">:lines</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:FlatPrinterWithLineNumbers</span>,
+      <span class="ruby-value">:html</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:GraphHtmlPrinter</span>,
+      <span class="ruby-value">:stack</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:CallStackPrinter</span>
+    }.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">ext</span>, <span class="ruby-identifier">name</span><span class="ruby-operator">|</span>
+      <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-node">&quot;#{base}.#{ext}&quot;</span>, <span class="ruby-string">'a+'</span>, <span class="ruby-identifier">encoding</span><span class="ruby-operator">:</span> <span class="ruby-constant">ENC</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+        <span class="ruby-constant">RubyProf</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">name</span>).<span class="ruby-identifier">new</span>(<span class="ruby-identifier">result</span>).<span class="ruby-identifier">print</span>(<span class="ruby-identifier">f</span>)
+      }
+    }
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- to_s-source -->
+          </div><!-- profile-source -->
           
         </div>
 
         
 
         
-      </div><!-- to_s-method -->
+      </div><!-- profile-method -->
+
+    
+      <div id="method-i-ps" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">ps</span><span
+            class="method-args">(name)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="ps-source">
+            <pre><span class="ruby-comment"># File lib/lingo/debug.rb, line 39</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">ps</span>(<span class="ruby-identifier">name</span>)
+  <span class="ruby-identifier">system</span>(<span class="ruby-constant">PS_COMMAND</span>,
+    <span class="ruby-string">'-o'</span>, <span class="ruby-constant">PS_COLUMNS</span>,
+    <span class="ruby-node">&quot;--#{'no-' if PS_NO_HEADING[name]}heading&quot;</span>,
+    <span class="ruby-constant">Process</span>.<span class="ruby-identifier">pid</span>.<span class="ruby-identifier">to_s</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">name</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">PS_RE</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- ps-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- ps-method -->
 
     
     </section><!-- public-instance-method-details -->

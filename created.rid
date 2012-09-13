@@ -1,18 +1,19 @@
-Mon, 10 Sep 2012 15:26:41 +0200
-README	Mon, 10 Sep 2012 15:01:35 +0200
+Thu, 13 Sep 2012 15:22:53 +0200
+README	Thu, 13 Sep 2012 13:34:56 +0200
 COPYING	Mon, 10 Sep 2012 15:01:35 +0200
-ChangeLog	Mon, 10 Sep 2012 15:09:20 +0200
-lib/lingo.rb	Mon, 10 Sep 2012 15:09:20 +0200
+ChangeLog	Thu, 13 Sep 2012 13:42:44 +0200
+lib/lingo.rb	Tue, 11 Sep 2012 14:08:58 +0200
 lib/lingo/app.rb	Mon, 10 Sep 2012 15:01:35 +0200
 lib/lingo/cli.rb	Mon, 10 Sep 2012 15:01:35 +0200
 lib/lingo/ctl.rb	Mon, 10 Sep 2012 15:09:20 +0200
 lib/lingo/srv.rb	Mon, 10 Sep 2012 15:01:35 +0200
 lib/lingo/web.rb	Mon, 10 Sep 2012 15:01:35 +0200
 lib/lingo/call.rb	Mon, 10 Sep 2012 15:01:35 +0200
+lib/lingo/debug.rb	Tue, 11 Sep 2012 14:30:18 +0200
 lib/lingo/error.rb	Mon, 10 Sep 2012 15:01:35 +0200
 lib/lingo/config.rb	Mon, 10 Sep 2012 15:09:20 +0200
-lib/lingo/version.rb	Mon, 10 Sep 2012 15:16:46 +0200
-lib/lingo/attendee.rb	Mon, 10 Sep 2012 15:05:25 +0200
+lib/lingo/version.rb	Thu, 13 Sep 2012 13:44:43 +0200
+lib/lingo/attendee.rb	Tue, 11 Sep 2012 13:59:45 +0200
 lib/lingo/database.rb	Mon, 10 Sep 2012 15:09:20 +0200
 lib/lingo/language.rb	Mon, 10 Sep 2012 15:01:35 +0200
 lib/lingo/agenda_item.rb	Mon, 10 Sep 2012 15:01:35 +0200
