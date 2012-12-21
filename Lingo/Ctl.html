@@ -458,7 +458,7 @@
 
           
           <div class="method-source-code" id="copy_list-source">
-            <pre><span class="ruby-comment"># File lib/lingo/ctl.rb, line 234</span>
+            <pre><span class="ruby-comment"># File lib/lingo/ctl.rb, line 236</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">copy_list</span>(<span class="ruby-identifier">what</span>)
   <span class="ruby-identifier">files</span> = <span class="ruby-identifier">list</span>(<span class="ruby-identifier">what</span>, <span class="ruby-keyword">false</span>)
   <span class="ruby-identifier">files</span>.<span class="ruby-identifier">select!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-keyword">yield</span> <span class="ruby-identifier">i</span> } <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
@@ -523,13 +523,15 @@
           <div class="method-source-code" id="do_demo-source">
             <pre><span class="ruby-comment"># File lib/lingo/ctl.rb, line 122</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">do_demo</span>
-  <span class="ruby-constant">OPTIONS</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">path</span><span class="ruby-operator">:</span> <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">shift</span>, <span class="ruby-identifier">scope</span><span class="ruby-operator">:</span> <span class="ruby-value">:system</span>)
+  <span class="ruby-constant">OPTIONS</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">path</span><span class="ruby-operator">:</span> <span class="ruby-identifier">path</span> = <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">shift</span>, <span class="ruby-identifier">scope</span><span class="ruby-operator">:</span> <span class="ruby-value">:system</span>)
   <span class="ruby-identifier">no_args</span>
 
   <span class="ruby-identifier">copy_list</span>(<span class="ruby-value">:config</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-operator">!</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">i</span>).<span class="ruby-identifier">start_with?</span>(<span class="ruby-string">'test'</span>) }
   <span class="ruby-identifier">copy_list</span>(<span class="ruby-value">:lang</span>)
   <span class="ruby-identifier">copy_list</span>(<span class="ruby-value">:dict</span>)   { <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>  <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">i</span>).<span class="ruby-identifier">start_with?</span>(<span class="ruby-string">'user'</span>) }
   <span class="ruby-identifier">copy_list</span>(<span class="ruby-value">:sample</span>)
+
+  <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Demo directory successfully initialized at `#{path}'.&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- do_demo-source -->
           
@@ -557,7 +559,7 @@
 
           
           <div class="method-source-code" id="do_help-source">
-            <pre><span class="ruby-comment"># File lib/lingo/ctl.rb, line 150</span>
+            <pre><span class="ruby-comment"># File lib/lingo/ctl.rb, line 152</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">do_help</span>(<span class="ruby-identifier">opts</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">no_args</span>
 
@@ -606,7 +608,7 @@
 
           
           <div class="method-source-code" id="do_path-source">
-            <pre><span class="ruby-comment"># File lib/lingo/ctl.rb, line 145</span>
+            <pre><span class="ruby-comment"># File lib/lingo/ctl.rb, line 147</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">do_path</span>
   <span class="ruby-identifier">no_args</span>
   <span class="ruby-identifier">puts</span> <span class="ruby-identifier">path_for_scope</span> <span class="ruby-operator">||</span> <span class="ruby-constant">PATH</span>
@@ -637,7 +639,7 @@
 
           
           <div class="method-source-code" id="do_rackup-source">
-            <pre><span class="ruby-comment"># File lib/lingo/ctl.rb, line 132</span>
+            <pre><span class="ruby-comment"># File lib/lingo/ctl.rb, line 134</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">do_rackup</span>(<span class="ruby-identifier">doit</span> = <span class="ruby-keyword">true</span>)
   <span class="ruby-identifier">name</span> = <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">shift</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">missing_arg</span>(<span class="ruby-value">:name</span>)
   <span class="ruby-identifier">no_args</span>
@@ -703,7 +705,7 @@
 
           
           <div class="method-source-code" id="do_version-source">
-            <pre><span class="ruby-comment"># File lib/lingo/ctl.rb, line 173</span>
+            <pre><span class="ruby-comment"># File lib/lingo/ctl.rb, line 175</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">do_version</span>(<span class="ruby-identifier">doit</span> = <span class="ruby-keyword">true</span>)
   <span class="ruby-identifier">no_args</span>
 
@@ -804,7 +806,7 @@
 
           
           <div class="method-source-code" id="missing_arg-source">
-            <pre><span class="ruby-comment"># File lib/lingo/ctl.rb, line 226</span>
+            <pre><span class="ruby-comment"># File lib/lingo/ctl.rb, line 228</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">missing_arg</span>(<span class="ruby-identifier">arg</span>)
   <span class="ruby-identifier">usage</span>(<span class="ruby-node">&quot;Required argument `#{arg}' missing.&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -834,7 +836,7 @@
 
           
           <div class="method-source-code" id="no_args-source">
-            <pre><span class="ruby-comment"># File lib/lingo/ctl.rb, line 230</span>
+            <pre><span class="ruby-comment"># File lib/lingo/ctl.rb, line 232</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">no_args</span>
   <span class="ruby-identifier">usage</span>(<span class="ruby-string">'Too many arguments.'</span>) <span class="ruby-keyword">unless</span> <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">empty?</span>
 <span class="ruby-keyword">end</span></pre>
@@ -864,7 +866,7 @@
 
           
           <div class="method-source-code" id="parse_options-source">
-            <pre><span class="ruby-comment"># File lib/lingo/ctl.rb, line 180</span>
+            <pre><span class="ruby-comment"># File lib/lingo/ctl.rb, line 182</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">parse_options</span>
   <span class="ruby-constant">OptionParser</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">USAGE</span>, <span class="ruby-constant">OPTWIDTH</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">opts</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">separator</span> <span class="ruby-string">''</span>
@@ -920,7 +922,7 @@
 
           
           <div class="method-source-code" id="path_for_scope-source">
-            <pre><span class="ruby-comment"># File lib/lingo/ctl.rb, line 210</span>
+            <pre><span class="ruby-comment"># File lib/lingo/ctl.rb, line 212</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">path_for_scope</span>(<span class="ruby-identifier">scope</span> = <span class="ruby-constant">OPTIONS</span>[<span class="ruby-value">:scope</span>])
   <span class="ruby-keyword">case</span> <span class="ruby-identifier">scope</span>
     <span class="ruby-keyword">when</span> <span class="ruby-value">:system</span> <span class="ruby-keyword">then</span> [<span class="ruby-constant">BASE</span>]
@@ -956,7 +958,7 @@
 
           
           <div class="method-source-code" id="usage-source">
-            <pre><span class="ruby-comment"># File lib/lingo/ctl.rb, line 220</span>
+            <pre><span class="ruby-comment"># File lib/lingo/ctl.rb, line 222</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">usage</span>(<span class="ruby-identifier">msg</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">abort</span> <span class="ruby-node">&quot;#{&quot;#{PROGNAME}: #{msg}\n\n&quot; if msg}#{USAGE}&quot;</span>
 <span class="ruby-keyword">end</span></pre>

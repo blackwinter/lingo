@@ -264,7 +264,7 @@
       <h3 class="section-header">Constants</h3>
       <dl>
       
-        <dt id="LANGS">LANGS
+        <dt id="L">L
         
         <dd class="description">
         
@@ -302,7 +302,7 @@
 
           
           <div class="method-source-code" id="doit-source">
-            <pre><span class="ruby-comment"># File lib/lingo/web.rb, line 77</span>
+            <pre><span class="ruby-comment"># File lib/lingo/web.rb, line 108</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">doit</span>
   <span class="ruby-ivar">@r</span> = <span class="ruby-constant">LINGO</span>[<span class="ruby-ivar">@l</span>].<span class="ruby-identifier">talk</span>(<span class="ruby-ivar">@q</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">_</span><span class="ruby-operator">|</span> <span class="ruby-identifier">_</span> } <span class="ruby-keyword">if</span> <span class="ruby-ivar">@q</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@q</span>.<span class="ruby-identifier">empty?</span>
 
@@ -342,9 +342,9 @@
 
           
           <div class="method-source-code" id="t-source">
-            <pre><span class="ruby-comment"># File lib/lingo/web.rb, line 72</span>
+            <pre><span class="ruby-comment"># File lib/lingo/web.rb, line 103</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">t</span>(*<span class="ruby-identifier">t</span>)
-  (<span class="ruby-identifier">i</span> = <span class="ruby-constant">UILANGS</span>.<span class="ruby-identifier">index</span>(<span class="ruby-ivar">@uilang</span>)) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">t</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">t</span>.<span class="ruby-identifier">first</span>
+  (<span class="ruby-identifier">i</span> = <span class="ruby-constant">HL</span>.<span class="ruby-identifier">index</span>(<span class="ruby-ivar">@hl</span>)) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">t</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">t</span>.<span class="ruby-identifier">first</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- t-source -->
           
@@ -372,7 +372,7 @@
 
           
           <div class="method-source-code" id="url_for-source">
-            <pre><span class="ruby-comment"># File lib/lingo/web.rb, line 68</span>
+            <pre><span class="ruby-comment"># File lib/lingo/web.rb, line 99</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">url_for</span>(<span class="ruby-identifier">path</span>)
   <span class="ruby-node">&quot;#{request.script_name}#{path}&quot;</span>
 <span class="ruby-keyword">end</span></pre>

@@ -325,6 +325,8 @@ out&gt; :./PUNC:
 out&gt; *EOL('test.txt')
 out&gt; *EOF('test.txt')</pre>
 
+<p>use-syn + combine</p>
+
   </div><!-- description -->
 
   
@@ -361,7 +363,7 @@ out&gt; *EOF('test.txt')</pre>
 
           
           <div class="method-source-code" id="control-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/multi_worder.rb, line 114</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/multi_worder.rb, line 116</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">control</span>(<span class="ruby-identifier">cmd</span>, <span class="ruby-identifier">param</span>)
   <span class="ruby-identifier">control_multi</span>(<span class="ruby-identifier">cmd</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -391,7 +393,7 @@ out&gt; *EOF('test.txt')</pre>
 
           
           <div class="method-source-code" id="init-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/multi_worder.rb, line 79</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/multi_worder.rb, line 81</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">init</span>
   <span class="ruby-comment"># combine lexical variants?</span>
   <span class="ruby-comment">#</span>
@@ -452,7 +454,7 @@ out&gt; *EOF('test.txt')</pre>
 
           
           <div class="method-source-code" id="process_buffer-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/multi_worder.rb, line 118</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/multi_worder.rb, line 120</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">process_buffer</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">form_at</span>(<span class="ruby-value">0</span>) <span class="ruby-operator">==</span> <span class="ruby-constant">CHAR_PUNCT</span>
     <span class="ruby-keyword">unless</span> (<span class="ruby-identifier">res</span> = <span class="ruby-identifier">check_multiword_key</span>(<span class="ruby-value">3</span>)).<span class="ruby-identifier">empty?</span>
@@ -521,7 +523,7 @@ out&gt; *EOF('test.txt')</pre>
 
           
           <div class="method-source-code" id="check_multiword_key-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/multi_worder.rb, line 176</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/multi_worder.rb, line 178</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">check_multiword_key</span>(<span class="ruby-identifier">len</span>)
   <span class="ruby-keyword">return</span> [] <span class="ruby-keyword">if</span> <span class="ruby-identifier">valid_tokens_in_buffer</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">len</span>
 
@@ -583,7 +585,7 @@ out&gt; *EOF('test.txt')</pre>
 
           
           <div class="method-source-code" id="create_and_forward_multiword-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/multi_worder.rb, line 157</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/multi_worder.rb, line 159</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create_and_forward_multiword</span>(<span class="ruby-identifier">len</span>, <span class="ruby-identifier">lex</span>)
   <span class="ruby-identifier">pos</span>, <span class="ruby-identifier">parts</span> = <span class="ruby-value">0</span>, []
 

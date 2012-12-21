@@ -286,10 +286,11 @@
 
           
           <div class="method-source-code" id="init_app-source">
-            <pre><span class="ruby-comment"># File lib/lingo/app.rb, line 36</span>
+            <pre><span class="ruby-comment"># File lib/lingo/app.rb, line 37</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">init_app</span>(<span class="ruby-identifier">file</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
   <span class="ruby-identifier">set</span> <span class="ruby-value">:root</span>, <span class="ruby-constant">File</span>.<span class="ruby-identifier">chomp_ext</span>(<span class="ruby-identifier">file</span>)
   <span class="ruby-identifier">parse_options</span>(*<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">helpers</span> <span class="ruby-constant">Sinatra</span><span class="ruby-operator">::</span><span class="ruby-constant">Cookies</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- init_app-source -->
           
@@ -317,7 +318,7 @@
 
           
           <div class="method-source-code" id="parse_options-source">
-            <pre><span class="ruby-comment"># File lib/lingo/app.rb, line 41</span>
+            <pre><span class="ruby-comment"># File lib/lingo/app.rb, line 43</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">parse_options</span>(<span class="ruby-identifier">lingo_options</span> = <span class="ruby-keyword">false</span>)
   <span class="ruby-identifier">argv</span>, <span class="ruby-identifier">banner</span> = [], <span class="ruby-node">&quot;Usage: #{$0} [-h|--help] [sinatra-options]&quot;</span>
   <span class="ruby-keyword">while</span> <span class="ruby-identifier">arg</span> = <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">shift</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">arg</span> <span class="ruby-operator">!=</span> <span class="ruby-string">'--'</span>; <span class="ruby-identifier">argv</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">arg</span>; <span class="ruby-keyword">end</span>
@@ -367,7 +368,7 @@
 
           
           <div class="method-source-code" id="rackup-source">
-            <pre><span class="ruby-comment"># File lib/lingo/app.rb, line 65</span>
+            <pre><span class="ruby-comment"># File lib/lingo/app.rb, line 67</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">rackup</span>(<span class="ruby-identifier">name</span>)
   <span class="ruby-identifier">file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-identifier">name</span>, <span class="ruby-string">'config.ru'</span>)
   <span class="ruby-identifier">file</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">readable?</span>(<span class="ruby-identifier">file</span>)
@@ -404,7 +405,7 @@
 
           
           <div class="method-source-code" id="to_json-source">
-            <pre><span class="ruby-comment"># File lib/lingo/app.rb, line 72</span>
+            <pre><span class="ruby-comment"># File lib/lingo/app.rb, line 74</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_json</span>(<span class="ruby-identifier">q</span>, <span class="ruby-identifier">r</span>)
   <span class="ruby-identifier">q</span>, <span class="ruby-identifier">r</span> = <span class="ruby-string">'q'</span>, <span class="ruby-string">'Required parameter -- Input string'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">q</span>
 
