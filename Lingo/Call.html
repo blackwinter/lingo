@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>class Lingo::Call - lingo Application documentation (v1.8.3)</title>
+<title>class Lingo::Call - lingo Application documentation (v1.8.4)</title>
 
 <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
 
@@ -220,6 +220,8 @@
   
     <li><a href="../Lingo/Language/WordForm.html">Lingo::Language::WordForm</a>
   
+    <li><a href="../Lingo/LibraryLoadError.html">Lingo::LibraryLoadError</a>
+  
     <li><a href="../Lingo/LingoError.html">Lingo::LingoError</a>
   
     <li><a href="../Lingo/MissingConfigError.html">Lingo::MissingConfigError</a>
@@ -417,7 +419,7 @@
   }
 
   <span class="ruby-identifier">block_given?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">res</span>.<span class="ruby-identifier">map!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-keyword">yield</span> <span class="ruby-identifier">i</span> } <span class="ruby-operator">:</span> <span class="ruby-keyword">begin</span>
-    <span class="ruby-identifier">res</span>.<span class="ruby-identifier">sort!</span>
+    <span class="ruby-constant">Lingo</span>.<span class="ruby-identifier">sort!</span>(<span class="ruby-identifier">res</span>)
     <span class="ruby-identifier">res</span>.<span class="ruby-identifier">uniq!</span>
     <span class="ruby-identifier">res</span>
   <span class="ruby-keyword">end</span>
