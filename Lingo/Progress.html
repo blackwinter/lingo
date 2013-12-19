@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>class Lingo::App - lingo Application documentation (v1.8.5.pre5)</title>
+<title>class Lingo::Progress - lingo Application documentation (v1.8.5.pre5)</title>
 
 <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
 
@@ -49,7 +49,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>lib/lingo/app.rb
+    <li>lib/lingo/progress.rb
   </ul>
 </nav>
 
@@ -61,7 +61,7 @@
     <nav id="parent-class-section" class="section">
   <h3 class="section-header">Parent</h3>
   
-  <p class="link">Sinatra::Base
+  <p class="link">Object
   
 </nav>
 
@@ -73,13 +73,13 @@
 
   <ul class="link-list">
     
-    <li ><a href="#method-c-init_app">::init_app</a>
+    <li ><a href="#method-c-new">::new</a>
     
-    <li ><a href="#method-c-parse_options">::parse_options</a>
+    <li ><a href="#method-i-3C-3C">#&lt;&lt;</a>
     
-    <li ><a href="#method-c-rackup">::rackup</a>
+    <li ><a href="#method-i-init">#init</a>
     
-    <li ><a href="#method-i-to_json">#to_json</a>
+    <li ><a href="#method-i-print">#print</a>
     
   </ul>
 </nav>
@@ -257,7 +257,7 @@
 </nav>
 
 <div id="documentation">
-  <h1 class="class">class Lingo::App</h1>
+  <h1 class="class">class Lingo::Progress</h1>
 
   <div id="description" class="description">
     
@@ -281,11 +281,11 @@
       <h3 class="section-header">Public Class Methods</h3>
 
     
-      <div id="method-c-init_app" class="method-detail ">
+      <div id="method-c-new" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">init_app</span><span
-            class="method-args">(file, *args, &block)</span>
+          <span class="method-name">new</span><span
+            class="method-args">(obj, max, name = nil, doit = true, text = 'progress', nl = true) { |self| ... }</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -299,108 +299,51 @@
           
 
           
-          <div class="method-source-code" id="init_app-source">
-            <pre><span class="ruby-comment"># File lib/lingo/app.rb, line 38</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">init_app</span>(<span class="ruby-identifier">file</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-identifier">set</span> <span class="ruby-value">:root</span>, <span class="ruby-constant">File</span>.<span class="ruby-identifier">chomp_ext</span>(<span class="ruby-identifier">file</span>)
-  <span class="ruby-identifier">parse_options</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-identifier">helpers</span> <span class="ruby-constant">Sinatra</span><span class="ruby-operator">::</span><span class="ruby-constant">Cookies</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- init_app-source -->
-          
-        </div>
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/lingo/progress.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">obj</span>, <span class="ruby-identifier">max</span>, <span class="ruby-identifier">name</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">doit</span> = <span class="ruby-keyword">true</span>, <span class="ruby-identifier">text</span> = <span class="ruby-string">&#39;progress&#39;</span>, <span class="ruby-identifier">nl</span> = <span class="ruby-keyword">true</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-ivar">@doit</span>, <span class="ruby-ivar">@out</span> = <span class="ruby-identifier">doit</span>, <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">lingo</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">stderr</span>
 
-        
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">max</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">doit</span>
+    <span class="ruby-identifier">format</span> = <span class="ruby-string">&#39; [%3d%%]&#39;</span>
+    <span class="ruby-identifier">length</span> = (<span class="ruby-identifier">format</span> <span class="ruby-operator">%</span> <span class="ruby-value">0</span>).<span class="ruby-identifier">length</span>
 
-        
-      </div><!-- init_app-method -->
+    <span class="ruby-identifier">erase</span> = <span class="ruby-string">&quot;\b&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">length</span>
+    <span class="ruby-ivar">@format</span> = <span class="ruby-identifier">format</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">erase</span>
 
-    
-      <div id="method-c-parse_options" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">parse_options</span><span
-            class="method-args">(lingo_options = false) { || ... }</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
+    <span class="ruby-identifier">print</span> <span class="ruby-identifier">name</span>, <span class="ruby-string">&#39;: &#39;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">name</span>
+    <span class="ruby-identifier">print</span> <span class="ruby-identifier">text</span>
 
-        <div class="method-description">
-          
-          
-          
-          
+    <span class="ruby-identifier">init</span>(<span class="ruby-identifier">max</span>)
 
-          
-          <div class="method-source-code" id="parse_options-source">
-            <pre><span class="ruby-comment"># File lib/lingo/app.rb, line 44</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">parse_options</span>(<span class="ruby-identifier">lingo_options</span> = <span class="ruby-keyword">false</span>)
-  <span class="ruby-identifier">argv</span>, <span class="ruby-identifier">banner</span> = [], <span class="ruby-node">&quot;Usage: #{$0} [-h|--help] [sinatra-options]&quot;</span>
-  <span class="ruby-keyword">while</span> <span class="ruby-identifier">arg</span> = <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">shift</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">arg</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;--&#39;</span>; <span class="ruby-identifier">argv</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">arg</span>; <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">lingo_options</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">block_given?</span>
-    <span class="ruby-identifier">banner</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39; [-- lingo-options]&#39;</span>
-
-    <span class="ruby-identifier">opts</span> = <span class="ruby-constant">ENV</span>[<span class="ruby-node">&quot;LINGO_#{name.split(&#39;::&#39;).last.upcase}_OPTS&quot;</span>]
-    <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-operator">*</span><span class="ruby-constant">Shellwords</span>.<span class="ruby-identifier">shellsplit</span>(<span class="ruby-identifier">opts</span>)) <span class="ruby-keyword">if</span> <span class="ruby-identifier">opts</span>
-
-    <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">lingo_options</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">lingo_options</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
+    <span class="ruby-identifier">msg</span> = <span class="ruby-node">%w[done aborted]</span>
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-constant">OptionParser</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">banner</span>, <span class="ruby-value">16</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">o</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">o</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;-p port&#39;</span>,   <span class="ruby-string">&#39;set the port (default is 4567)&#39;</span>)                { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">set</span> <span class="ruby-value">:port</span>, <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">v</span>) }
-    <span class="ruby-identifier">o</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;-o addr&#39;</span>,   <span class="ruby-string">&#39;set the host (default is 0.0.0.0)&#39;</span>)             { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">set</span> <span class="ruby-value">:bind</span>, <span class="ruby-identifier">v</span> }
-    <span class="ruby-identifier">o</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;-e env&#39;</span>,    <span class="ruby-string">&#39;set the environment (default is development)&#39;</span>)  { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">set</span> <span class="ruby-value">:environment</span>, <span class="ruby-identifier">v</span>.<span class="ruby-identifier">to_sym</span> }
-    <span class="ruby-identifier">o</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;-s server&#39;</span>, <span class="ruby-string">&#39;specify rack server/handler (default is thin)&#39;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">set</span> <span class="ruby-value">:server</span>, <span class="ruby-identifier">v</span> }
-    <span class="ruby-identifier">o</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;-x&#39;</span>,        <span class="ruby-string">&#39;turn on the mutex lock (default is off)&#39;</span>)       {     <span class="ruby-identifier">set</span> <span class="ruby-value">:lock</span>, <span class="ruby-keyword">true</span> }
-  }.<span class="ruby-identifier">parse!</span>(<span class="ruby-identifier">argv</span>)
+  <span class="ruby-identifier">suc</span> = <span class="ruby-keyword">false</span>
 
-  <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-operator">*</span><span class="ruby-keyword">yield</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+  <span class="ruby-identifier">res</span> = <span class="ruby-identifier">catch</span>(<span class="ruby-value">:cancel</span>) {
+    <span class="ruby-identifier">trap</span>(<span class="ruby-value">:INT</span>) { <span class="ruby-identifier">throw</span>(<span class="ruby-value">:cancel</span>) }
+
+    <span class="ruby-keyword">yield</span> <span class="ruby-keyword">self</span>
+
+    <span class="ruby-identifier">suc</span> = <span class="ruby-keyword">true</span>
+    <span class="ruby-keyword">nil</span>
+  }
+
+  <span class="ruby-identifier">print</span> <span class="ruby-string">&#39; &#39;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">length</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">erase</span>, <span class="ruby-string">&#39; &#39;</span>, <span class="ruby-identifier">msg</span>[<span class="ruby-identifier">suc</span> <span class="ruby-operator">?</span> <span class="ruby-value">0</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>], <span class="ruby-string">&#39;.&#39;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>
+  <span class="ruby-identifier">print</span> <span class="ruby-string">&quot;\n&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">res</span>
+
+  <span class="ruby-identifier">print</span> <span class="ruby-constant">Array</span>(<span class="ruby-identifier">res</span>).<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">res</span>
+  <span class="ruby-identifier">print</span> <span class="ruby-string">&quot;\n&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">nl</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">msg</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">res</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- parse_options-source -->
+          </div><!-- new-source -->
           
         </div>
 
         
 
         
-      </div><!-- parse_options-method -->
-
-    
-      <div id="method-c-rackup" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">rackup</span><span
-            class="method-args">(name)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="rackup-source">
-            <pre><span class="ruby-comment"># File lib/lingo/app.rb, line 68</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">rackup</span>(<span class="ruby-identifier">name</span>)
-  <span class="ruby-identifier">file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-identifier">name</span>, <span class="ruby-string">&#39;config.ru&#39;</span>)
-  <span class="ruby-identifier">file</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">readable?</span>(<span class="ruby-identifier">file</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- rackup-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- rackup-method -->
+      </div><!-- new-method -->
 
     
     </section><!-- public-class-method-details -->
@@ -409,11 +352,11 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="method-i-to_json" class="method-detail ">
+      <div id="method-i-3C-3C" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">to_json</span><span
-            class="method-args">(q, r)</span>
+          <span class="method-name">&lt;&lt;</span><span
+            class="method-args">(value)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -427,25 +370,102 @@
           
 
           
-          <div class="method-source-code" id="to_json-source">
-            <pre><span class="ruby-comment"># File lib/lingo/app.rb, line 75</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_json</span>(<span class="ruby-identifier">q</span>, <span class="ruby-identifier">r</span>)
-  <span class="ruby-identifier">q</span>, <span class="ruby-identifier">r</span> = <span class="ruby-string">&#39;q&#39;</span>, <span class="ruby-string">&#39;Required parameter -- Input string&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">q</span>
+          <div class="method-source-code" id="3C-3C-source">
+            <pre><span class="ruby-comment"># File lib/lingo/progress.rb, line 73</span>
+<span class="ruby-keyword">def</span> <span class="ruby-operator">&lt;&lt;</span>(<span class="ruby-identifier">value</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">defined?</span>(<span class="ruby-ivar">@count</span>) <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-ivar">@count</span> = <span class="ruby-identifier">value</span>) <span class="ruby-operator">&gt;=</span> <span class="ruby-ivar">@next</span>
+    <span class="ruby-identifier">percent</span> = <span class="ruby-ivar">@count</span> <span class="ruby-operator">/</span> <span class="ruby-ivar">@ratio</span>
+    <span class="ruby-ivar">@next</span> = (<span class="ruby-identifier">percent</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>) <span class="ruby-operator">*</span> <span class="ruby-ivar">@ratio</span>
 
-  <span class="ruby-identifier">content_type</span> <span class="ruby-value">:json</span>
-  { <span class="ruby-identifier">q</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">r</span> }.<span class="ruby-identifier">to_json</span>
+    <span class="ruby-identifier">print</span> <span class="ruby-ivar">@format</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">percent</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">percent</span>.<span class="ruby-identifier">finite?</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- to_json-source -->
+          </div><!-- 3C-3C-source -->
           
         </div>
 
         
 
         
-      </div><!-- to_json-method -->
+      </div><!-- 3C-3C-method -->
+
+    
+      <div id="method-i-init" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">init</span><span
+            class="method-args">(max, doit = @doit)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="init-source">
+            <pre><span class="ruby-comment"># File lib/lingo/progress.rb, line 66</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">init</span>(<span class="ruby-identifier">max</span>, <span class="ruby-identifier">doit</span> = <span class="ruby-ivar">@doit</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">max</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">doit</span>
+    <span class="ruby-ivar">@ratio</span>, <span class="ruby-ivar">@next</span> = <span class="ruby-identifier">max</span> <span class="ruby-operator">/</span> <span class="ruby-value">100.0</span>, <span class="ruby-value">0</span>
+    <span class="ruby-keyword">self</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@count</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- init-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- init-method -->
 
     
     </section><!-- public-instance-method-details -->
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Private Instance Methods</h3>
+
+    
+      <div id="method-i-print" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">print</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="print-source">
+            <pre><span class="ruby-comment"># File lib/lingo/progress.rb, line 84</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">print</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+  <span class="ruby-ivar">@out</span>.<span class="ruby-identifier">print</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- print-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- print-method -->
+
+    
+    </section><!-- private-instance-method-details -->
   
   </section><!-- 5Buntitled-5D -->
 
