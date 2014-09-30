@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Lingo::AgendaItem - lingo Application documentation (v1.8.5.rc1)</title>
+<title>class Lingo::TokenizeError - lingo Application documentation (v1.8.5.rc1)</title>
 
 <link href="../fonts.css" rel="stylesheet">
 <link href="../rdoc.css" rel="stylesheet">
@@ -61,22 +61,11 @@
   <h3>Parent</h3>
 
   
-  <p class="link">Object
+  <p class="link"><a href="LingoError.html">Lingo::LingoError</a>
   
 </div>
 
-    <div id="includes-section" class="nav-section">
-  <h3>Included Modules</h3>
-
-  <ul class="link-list">
-  
-  
-    <li><span class="include">Comparable</span>
-  
-  
-  </ul>
-</div>
-
+    
     
     <!-- Method Quickref -->
 <div id="method-list-section" class="nav-section">
@@ -86,11 +75,7 @@
     
     <li ><a href="#method-c-new">::new</a>
     
-    <li ><a href="#method-i-3C-3D-3E">#&lt;=&gt;</a>
-    
-    <li ><a href="#method-i-inspect">#inspect</a>
-    
-    <li ><a href="#method-i-to_a">#to_a</a>
+    <li ><a href="#method-i-to_s">#to_s</a>
     
   </ul>
 </div>
@@ -98,9 +83,9 @@
   </div>
 </nav>
 
-<main role="main" aria-labelledby="class-Lingo::AgendaItem">
-  <h1 id="class-Lingo::AgendaItem" class="class">
-    class Lingo::AgendaItem
+<main role="main" aria-labelledby="class-Lingo::TokenizeError">
+  <h1 id="class-Lingo::TokenizeError" class="class">
+    class Lingo::TokenizeError
   </h1>
 
   <section class="description">
@@ -124,9 +109,9 @@
       </header>
 
       
-      <div id="attribute-i-cmd" class="method-detail">
+      <div id="attribute-i-err" class="method-detail">
         <div class="method-heading attribute-method-heading">
-          <span class="method-name">cmd</span><span
+          <span class="method-name">err</span><span
             class="attribute-access-type">[R]</span>
         </div>
 
@@ -137,9 +122,35 @@
         </div>
       </div>
       
-      <div id="attribute-i-param" class="method-detail">
+      <div id="attribute-i-file" class="method-detail">
         <div class="method-heading attribute-method-heading">
-          <span class="method-name">param</span><span
+          <span class="method-name">file</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-line" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">line</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-num" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">num</span><span
             class="attribute-access-type">[R]</span>
         </div>
 
@@ -164,7 +175,7 @@
         
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">(cmd, param = nil)</span>
+            class="method-args">(line, file, num, err)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -179,9 +190,9 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/lingo/agenda_item.rb, line 34</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">cmd</span>, <span class="ruby-identifier">param</span> = <span class="ruby-keyword">nil</span>)
-  <span class="ruby-ivar">@cmd</span>, <span class="ruby-ivar">@param</span> = <span class="ruby-identifier">cmd</span> <span class="ruby-operator">||</span> <span class="ruby-string">&#39;&#39;</span>, <span class="ruby-identifier">param</span> <span class="ruby-operator">||</span> <span class="ruby-string">&#39;&#39;</span>
+            <pre><span class="ruby-comment"># File lib/lingo/error.rb, line 205</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">line</span>, <span class="ruby-identifier">file</span>, <span class="ruby-identifier">num</span>, <span class="ruby-identifier">err</span>)
+  <span class="ruby-ivar">@line</span>, <span class="ruby-ivar">@file</span>, <span class="ruby-ivar">@num</span>, <span class="ruby-ivar">@err</span> = <span class="ruby-identifier">line</span>, <span class="ruby-identifier">file</span>, <span class="ruby-identifier">num</span>, <span class="ruby-identifier">err</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -201,43 +212,10 @@
        </header>
 
     
-      <div id="method-i-3C-3D-3E" class="method-detail ">
+      <div id="method-i-to_s" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">&lt;=&gt;</span><span
-            class="method-args">(other)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="3C-3D-3E-source">
-            <pre><span class="ruby-comment"># File lib/lingo/agenda_item.rb, line 38</span>
-<span class="ruby-keyword">def</span> <span class="ruby-operator">&lt;=&gt;</span>(<span class="ruby-identifier">other</span>)
-  <span class="ruby-identifier">other</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">to_a</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">to_a</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-inspect" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">inspect</span><span
+          <span class="method-name">to_s</span><span
             class="method-args">()</span>
           
           <span class="method-click-advice">click to toggle source</span>
@@ -252,43 +230,18 @@
           
 
           
-          <div class="method-source-code" id="inspect-source">
-            <pre><span class="ruby-comment"># File lib/lingo/agenda_item.rb, line 46</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">inspect</span>
-  <span class="ruby-node">&quot;*#{cmd.upcase}(&#39;#{param}&#39;)&quot;</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
+          <div class="method-source-code" id="to_s-source">
+            <pre><span class="ruby-comment"># File lib/lingo/error.rb, line 209</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
+  <span class="ruby-identifier">line</span>, <span class="ruby-identifier">file</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">line</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">file</span>
 
-        
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">48</span>
+    <span class="ruby-identifier">line</span> = <span class="ruby-identifier">line</span>[<span class="ruby-value">0</span>, <span class="ruby-value">45</span>] <span class="ruby-operator">+</span> <span class="ruby-string">&#39;...&#39;</span>
+  <span class="ruby-keyword">end</span>
 
-        
-      </div>
+  <span class="ruby-identifier">file</span> <span class="ruby-operator">&amp;&amp;=</span> <span class="ruby-node">&quot;#{file}:#{num}: &quot;</span>
 
-    
-      <div id="method-i-to_a" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">to_a</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="to_a-source">
-            <pre><span class="ruby-comment"># File lib/lingo/agenda_item.rb, line 42</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_a</span>
-  [<span class="ruby-identifier">cmd</span>, <span class="ruby-identifier">param</span>]
+  <span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;An error occured while trying to tokenize #{file}#{line.inspect}&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
