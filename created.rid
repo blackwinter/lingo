@@ -1,5 +1,5 @@
-Thu, 02 Oct 2014 12:31:33 +0200
-README	Thu, 02 Oct 2014 12:27:58 +0200
+Thu, 02 Oct 2014 16:30:06 +0200
+README	Thu, 02 Oct 2014 15:35:11 +0200
 COPYING	Wed, 06 Mar 2013 13:57:17 +0100
 ChangeLog	Thu, 02 Oct 2014 12:27:58 +0200
 lib/lingo.rb	Wed, 18 Jun 2014 15:05:15 +0200
@@ -33,7 +33,7 @@ lib/lingo/database/progress.rb	Wed, 18 Jun 2014 15:05:15 +0200
 lib/lingo/attendee/formatter.rb	Fri, 11 Apr 2014 15:37:06 +0200
 lib/lingo/attendee/sequencer.rb	Fri, 11 Apr 2014 15:37:06 +0200
 lib/lingo/attendee/synonymer.rb	Wed, 18 Jun 2014 15:05:15 +0200
-lib/lingo/attendee/tokenizer.rb	Thu, 02 Oct 2014 12:15:52 +0200
+lib/lingo/attendee/tokenizer.rb	Thu, 02 Oct 2014 16:29:15 +0200
 lib/lingo/language/word_form.rb	Wed, 18 Jun 2014 15:05:15 +0200
 lib/lingo/attendee/decomposer.rb	Wed, 18 Jun 2014 15:05:15 +0200
 lib/lingo/database/gdbm_store.rb	Wed, 06 Mar 2013 13:57:17 +0100
