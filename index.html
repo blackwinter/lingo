@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>lingo Application documentation (v1.8.5)</title>
+<title>lingo Application documentation (v1.8.6.pre1)</title>
 
 <link href="./fonts.css" rel="stylesheet">
 <link href="./rdoc.css" rel="stylesheet">
@@ -74,13 +74,13 @@
 
   <ul class="link-list">
   
-    <li><a href="./Lingo/AgendaItem.html">Lingo::AgendaItem</a>
-  
     <li><a href="./Lingo/App.html">Lingo::App</a>
   
     <li><a href="./Lingo/Attendee.html">Lingo::Attendee</a>
   
     <li><a href="./Lingo/Attendee/Abbreviator.html">Lingo::Attendee::Abbreviator</a>
+  
+    <li><a href="./Lingo/Attendee/DebugFilter.html">Lingo::Attendee::DebugFilter</a>
   
     <li><a href="./Lingo/Attendee/Debugger.html">Lingo::Attendee::Debugger</a>
   
@@ -325,7 +325,7 @@ href="README.html">README</a> file:</p>
 <pre>meeting:
   attendees:
     - text_reader: { files: &#39;README&#39; }
-    - debugger:    { eval: &#39;true&#39;, ceval: &#39;cmd!=&quot;EOL&quot;&#39;, prompt: &#39;&lt;debug&gt;: &#39; }</pre>
+    - debugger:    { eval: &#39;true&#39;, ceval: &#39;cmd!=&quot;EOL&quot;&#39;, prompt: &#39;&lt;debug&gt;:  &#39; }</pre>
 
 <p>Lingo is told to invite two attendees and wants them to talk to each other,
 hence the name Lingo (= the technical language).</p>
@@ -499,7 +499,7 @@ out of context to external files.</p>
 <p><em>Example</em>:</p>
 
 <pre># keep line endings
-- text_reader:     { files: $(files), chomp: false }
+- text_reader:     { files: $(files) }
 # keep whitespace
 - tokenizer:       { space: true }
 # do processing...

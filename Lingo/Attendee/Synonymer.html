@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Lingo::Attendee::Synonymer - lingo Application documentation (v1.8.5)</title>
+<title>class Lingo::Attendee::Synonymer - lingo Application documentation (v1.8.6.pre1)</title>
 
 <link href="../../fonts.css" rel="stylesheet">
 <link href="../../rdoc.css" rel="stylesheet">
@@ -54,16 +54,6 @@
   </div>
 
   
-<div class="nav-section">
-  <h3>Table of Contents</h3>
-
-  <ul class="link-list" role="directory">
-    <li><a href="#class-Lingo::Attendee::Synonymer-label-M%C3%B6gliche+Verlinkung">Mögliche Verlinkung</a>
-    <li><a href="#class-Lingo::Attendee::Synonymer-label-Parameter">Parameter</a>
-    <li><a href="#class-Lingo::Attendee::Synonymer-label-Beispiele">Beispiele</a>
-  </ul>
-</div>
-
 
   <div id="class-metadata">
     
@@ -102,73 +92,6 @@
 
   <section class="description">
     
-<p>Der <a href="Synonymer.html">Synonymer</a> untersucht die von anderen
-Attendees ermittelten Grundformen eines Wortes und sucht in den angegebenen
-Wörterbüchern nach Relationen zu anderen Grundformen. Gefundene Relationen
-erweitern die Liste des Word-Objektes und werden zur späteren
-Identifizierung mit der Wortklasse &#39;y&#39; gekennzeichnet.</p>
-
-<h3 id="class-Lingo::Attendee::Synonymer-label-M%C3%B6gliche+Verlinkung">Mögliche Verlinkung<span><a href="#class-Lingo::Attendee::Synonymer-label-M%C3%B6gliche+Verlinkung">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
-<dl class="rdoc-list note-list"><dt>Erwartet
-<dd>
-<p>Daten vom Typ <strong>Word</strong> z.B. von Wordsearcher, <a
-href="Decomposer.html">Decomposer</a>, Ocr_variator, Multiworder</p>
-</dd><dt>Erzeugt
-<dd>
-<p>Daten vom Typ <strong>Word</strong> (ggf. um Relationen ergänzt) z.B. für
-<a href="Decomposer.html">Decomposer</a>, Ocr_variator, Multiworder, <a
-href="Sequencer.html">Sequencer</a>, Noneword_filter, Vector_filter</p>
-</dd></dl>
-
-<h3 id="class-Lingo::Attendee::Synonymer-label-Parameter">Parameter<span><a href="#class-Lingo::Attendee::Synonymer-label-Parameter">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
-
-<p>Kursiv dargestellte Parameter sind optional (ggf. mit Angabe der
-Voreinstellung). Alle anderen Parameter müssen zwingend angegeben werden.</p>
-<dl class="rdoc-list note-list"><dt><strong>in</strong>
-<dd>
-<p>siehe allgemeine Beschreibung des <a href="../Attendee.html">Attendee</a></p>
-</dd><dt><strong>out</strong>
-<dd>
-<p>siehe allgemeine Beschreibung des <a href="../Attendee.html">Attendee</a></p>
-</dd><dt><strong>source</strong>
-<dd>
-<p>siehe allgemeine Beschreibung des Dictionary</p>
-</dd><dt><strong><em>mode</em></strong>
-<dd>
-<p>(Standard: all) siehe allgemeine Beschreibung des Dictionary</p>
-</dd><dt><strong><em>skip</em></strong>
-<dd>
-<p>(Standard: WA_UNKNOWN [siehe strings.rb]) Veranlasst den <a
-href="Synonymer.html">Synonymer</a> Wörter mit diesem Attribut zu
-überspringen.</p>
-</dd></dl>
-
-<h3 id="class-Lingo::Attendee::Synonymer-label-Beispiele">Beispiele<span><a href="#class-Lingo::Attendee::Synonymer-label-Beispiele">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
-
-<p>Bei der Verarbeitung einer normalen Textdatei mit der Ablaufkonfiguration
-<code>t1.cfg</code></p>
-
-<pre>meeting:
-  attendees:
-    - text_reader:   { out: lines, files: &#39;$(files)&#39; }
-    - tokenizer:     { in: lines, out: token }
-    - abbreviator:   { in: token, out: abbrev, source: &#39;sys-abk&#39; }
-    - word_searcher: { in: abbrev, out: words, source: &#39;sys-dic&#39; }
-    - synonymer:     { in: words, out: synos, source: &#39;sys-syn&#39; }
-    - debugger:      { in: words, prompt: &#39;out&gt;&#39; }</pre>
-
-<p>ergibt die Ausgabe über den Debugger: <code>lingo -c t1 test.txt</code></p>
-
-<pre>out&gt; *FILE(&#39;test.txt&#39;)
-out&gt; &lt;Dies = [(dies/w), (das/y), (dies/y)]&gt;
-out&gt; &lt;ist = [(sein/v), ((sich) befinden/y), (dasein/y), (existenz/y), (sein/y), (vorhandensein/y)]&gt;
-out&gt; &lt;ggf. = [(gegebenenfalls/w), (bei bedarf/y), (gegebenenfalls/y), (ggf./y), (notfalls/y)]&gt;
-out&gt; &lt;eine = [(einen/v), (ein/w)]&gt;
-out&gt; &lt;Abk³rzung = [(abk³rzung/s), (abbreviation/y), (abbreviatur/y), (abk³rzung/y), (akronym/y), (kurzbezeichnung/y)]&gt;
-out&gt; :./PUNC:
-out&gt; *EOL(&#39;test.txt&#39;)
-out&gt; *EOF(&#39;test.txt&#39;)</pre>
-
   </section>
 
   
@@ -194,7 +117,7 @@ out&gt; *EOF(&#39;test.txt&#39;)</pre>
         
         <div class="method-heading">
           <span class="method-name">control</span><span
-            class="method-args">(cmd, param)</span>
+            class="method-args">(*)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -209,8 +132,8 @@ out&gt; *EOF(&#39;test.txt&#39;)</pre>
 
           
           <div class="method-source-code" id="control-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/synonymer.rb, line 80</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">control</span>(<span class="ruby-identifier">cmd</span>, <span class="ruby-identifier">param</span>)
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/synonymer.rb, line 82</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">control</span>(<span class="ruby-operator">*</span>)
   <span class="ruby-comment"># can control</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -242,7 +165,7 @@ out&gt; *EOF(&#39;test.txt&#39;)</pre>
 
           
           <div class="method-source-code" id="init-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/synonymer.rb, line 74</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/synonymer.rb, line 76</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">init</span>
   <span class="ruby-identifier">set_dic</span>
   <span class="ruby-ivar">@com</span> = <span class="ruby-operator">!</span><span class="ruby-identifier">get_key</span>(<span class="ruby-string">&#39;compound-parts&#39;</span>, <span class="ruby-keyword">false</span>)
@@ -277,7 +200,7 @@ out&gt; *EOF(&#39;test.txt&#39;)</pre>
 
           
           <div class="method-source-code" id="process-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/synonymer.rb, line 84</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/synonymer.rb, line 86</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">process</span>(<span class="ruby-identifier">obj</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Word</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@skip</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">obj</span>.<span class="ruby-identifier">attr</span>)
     <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">add_lexicals</span>(<span class="ruby-ivar">@dic</span>.<span class="ruby-identifier">find_synonyms</span>(<span class="ruby-identifier">obj</span>, [], <span class="ruby-ivar">@com</span>))

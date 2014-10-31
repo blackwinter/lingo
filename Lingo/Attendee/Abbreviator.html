@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Lingo::Attendee::Abbreviator - lingo Application documentation (v1.8.5)</title>
+<title>class Lingo::Attendee::Abbreviator - lingo Application documentation (v1.8.6.pre1)</title>
 
 <link href="../../fonts.css" rel="stylesheet">
 <link href="../../rdoc.css" rel="stylesheet">
@@ -54,16 +54,6 @@
   </div>
 
   
-<div class="nav-section">
-  <h3>Table of Contents</h3>
-
-  <ul class="link-list" role="directory">
-    <li><a href="#class-Lingo::Attendee::Abbreviator-label-M%C3%B6gliche+Verlinkung">Mögliche Verlinkung</a>
-    <li><a href="#class-Lingo::Attendee::Abbreviator-label-Parameter">Parameter</a>
-    <li><a href="#class-Lingo::Attendee::Abbreviator-label-Beispiele">Beispiele</a>
-  </ul>
-</div>
-
 
   <div id="class-metadata">
     
@@ -104,70 +94,6 @@
 
   <section class="description">
     
-<p>Die Erkennung von Abkürzungen kann auf vielfältige Weise erfolgen. In jedem
-Fall sollte eine sichere Unterscheidung von einem Satzende-Punkt möglich
-sein. Der in Lingo gewählte Ansatz befreit den <a
-href="Tokenizer.html">Tokenizer</a> von dieser Arbeit und konzentriert die
-Erkennung in diesem <a href="../Attendee.html">Attendee</a>. Sobald der <a
-href="Abbreviator.html">Abbreviator</a> im Datenstrom auf ein Punkt trifft
-(Token = <code>:./PUNC:</code>), prüft er das vorhergehende Token auf eine
-gültige Abkürzung im Abkürzungs-Wörterbuch. Wird es als Abkürzung erkannt,
-dann wird das Token in ein Word gewandelt und das Punkt-Token aus dem
-Zeichenstrom entfernt.</p>
-
-<h3 id="class-Lingo::Attendee::Abbreviator-label-M%C3%B6gliche+Verlinkung">Mögliche Verlinkung<span><a href="#class-Lingo::Attendee::Abbreviator-label-M%C3%B6gliche+Verlinkung">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
-<dl class="rdoc-list note-list"><dt>Erwartet
-<dd>
-<p>Daten des Typs <strong>Token</strong> z.B. von <a
-href="Tokenizer.html">Tokenizer</a></p>
-</dd><dt>Erzeugt
-<dd>
-<p>Leitet Token weiter und wandelt erkannte Abkürzungen in den Typ
-<strong>Word</strong> z.B. für Wordsearcher</p>
-</dd></dl>
-
-<h3 id="class-Lingo::Attendee::Abbreviator-label-Parameter">Parameter<span><a href="#class-Lingo::Attendee::Abbreviator-label-Parameter">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
-
-<p>Kursiv dargestellte Parameter sind optional (ggf. mit Angabe der
-Voreinstellung). Alle anderen Parameter müssen zwingend angegeben werden.</p>
-<dl class="rdoc-list note-list"><dt><strong>in</strong>
-<dd>
-<p>siehe allgemeine Beschreibung des <a href="../Attendee.html">Attendee</a></p>
-</dd><dt><strong>out</strong>
-<dd>
-<p>siehe allgemeine Beschreibung des <a href="../Attendee.html">Attendee</a></p>
-</dd><dt><strong>source</strong>
-<dd>
-<p>siehe allgemeine Beschreibung des Dictionary</p>
-</dd><dt><strong><em>mode</em></strong>
-<dd>
-<p>(Standard: all) siehe allgemeine Beschreibung des Dictionary</p>
-</dd></dl>
-
-<h3 id="class-Lingo::Attendee::Abbreviator-label-Beispiele">Beispiele<span><a href="#class-Lingo::Attendee::Abbreviator-label-Beispiele">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
-
-<p>Bei der Verarbeitung einer normalen Textdatei mit der Ablaufkonfiguration
-<code>t1.cfg</code></p>
-
-<pre>meeting:
-  attendees:
-    - text_reader:  { out: lines, files: &#39;$(files)&#39; }
-    - tokenizer:    { in: lines, out: token }
-    - abbreviator:  { in: token, out: abbrev, source: &#39;sys-abk&#39; }
-    - debugger:     { in: abbrev, prompt: &#39;out&gt;&#39; }</pre>
-
-<p>ergibt die Ausgabe über den Debugger: <code>lingo -c t1 test.txt</code></p>
-
-<pre>out&gt; *FILE(&#39;test.txt&#39;)
-out&gt; :Dies/WORD:
-out&gt; :ist/WORD:
-out&gt; &lt;ggf. = [(gegebenenfalls/w)]&gt;
-out&gt; :eine/WORD:
-out&gt; :Abk³rzung/WORD:
-out&gt; :./PUNC:
-out&gt; *EOL(&#39;test.txt&#39;)
-out&gt; *EOF(&#39;test.txt&#39;)</pre>
-
   </section>
 
   
@@ -193,7 +119,7 @@ out&gt; *EOF(&#39;test.txt&#39;)</pre>
         
         <div class="method-heading">
           <span class="method-name">control</span><span
-            class="method-args">(cmd, param)</span>
+            class="method-args">(cmd, *)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -208,9 +134,9 @@ out&gt; *EOF(&#39;test.txt&#39;)</pre>
 
           
           <div class="method-source-code" id="control-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/abbreviator.rb, line 79</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">control</span>(<span class="ruby-identifier">cmd</span>, <span class="ruby-identifier">param</span>)
-  <span class="ruby-identifier">send_abbr</span>(<span class="ruby-ivar">@abbr</span>) <span class="ruby-keyword">if</span> [<span class="ruby-constant">STR_CMD_RECORD</span>, <span class="ruby-constant">STR_CMD_EOF</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cmd</span>)
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/abbreviator.rb, line 81</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">control</span>(<span class="ruby-identifier">cmd</span>, <span class="ruby-operator">*</span>)
+  <span class="ruby-identifier">send_abbr</span>(<span class="ruby-ivar">@abbr</span>) <span class="ruby-keyword">if</span> [<span class="ruby-value">:RECORD</span>, <span class="ruby-value">:EOF</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cmd</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -241,7 +167,7 @@ out&gt; *EOF(&#39;test.txt&#39;)</pre>
 
           
           <div class="method-source-code" id="init-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/abbreviator.rb, line 74</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/abbreviator.rb, line 76</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">init</span>
   <span class="ruby-identifier">set_dic</span>
   <span class="ruby-ivar">@abbr</span> = <span class="ruby-keyword">nil</span>
@@ -275,7 +201,7 @@ out&gt; *EOF(&#39;test.txt&#39;)</pre>
 
           
           <div class="method-source-code" id="process-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/abbreviator.rb, line 83</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/abbreviator.rb, line 85</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">process</span>(<span class="ruby-identifier">obj</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Token</span>)
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">form</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CHAR_PUNCT</span>
@@ -330,7 +256,7 @@ out&gt; *EOF(&#39;test.txt&#39;)</pre>
 
           
           <div class="method-source-code" id="send_abbr-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/abbreviator.rb, line 103</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/abbreviator.rb, line 105</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">send_abbr</span>(<span class="ruby-identifier">abbr</span>, <span class="ruby-identifier">obj</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-ivar">@abbr</span> = <span class="ruby-identifier">obj</span>
   <span class="ruby-identifier">forward</span>(<span class="ruby-identifier">abbr</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">abbr</span>

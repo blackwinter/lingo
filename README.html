@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>README - lingo Application documentation (v1.8.5)</title>
+<title>README - lingo Application documentation (v1.8.6.pre1)</title>
 
 <link href="./fonts.css" rel="stylesheet">
 <link href="./rdoc.css" rel="stylesheet">
@@ -221,7 +221,7 @@ href="README.html">README</a> file:</p>
 <pre>meeting:
   attendees:
     - text_reader: { files: &#39;README&#39; }
-    - debugger:    { eval: &#39;true&#39;, ceval: &#39;cmd!=&quot;EOL&quot;&#39;, prompt: &#39;&lt;debug&gt;: &#39; }</pre>
+    - debugger:    { eval: &#39;true&#39;, ceval: &#39;cmd!=&quot;EOL&quot;&#39;, prompt: &#39;&lt;debug&gt;:  &#39; }</pre>
 
 <p>Lingo is told to invite two attendees and wants them to talk to each other,
 hence the name Lingo (= the technical language).</p>
@@ -395,7 +395,7 @@ out of context to external files.</p>
 <p><em>Example</em>:</p>
 
 <pre># keep line endings
-- text_reader:     { files: $(files), chomp: false }
+- text_reader:     { files: $(files) }
 # keep whitespace
 - tokenizer:       { space: true }
 # do processing...

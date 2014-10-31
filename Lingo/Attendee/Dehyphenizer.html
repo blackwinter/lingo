@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Lingo::Attendee::Dehyphenizer - lingo Application documentation (v1.8.5)</title>
+<title>class Lingo::Attendee::Dehyphenizer - lingo Application documentation (v1.8.6.pre1)</title>
 
 <link href="../../fonts.css" rel="stylesheet">
 <link href="../../rdoc.css" rel="stylesheet">
@@ -54,16 +54,6 @@
   </div>
 
   
-<div class="nav-section">
-  <h3>Table of Contents</h3>
-
-  <ul class="link-list" role="directory">
-    <li><a href="#class-Lingo::Attendee::Dehyphenizer-label-M%C3%B6gliche+Verlinkung">Mögliche Verlinkung</a>
-    <li><a href="#class-Lingo::Attendee::Dehyphenizer-label-Parameter">Parameter</a>
-    <li><a href="#class-Lingo::Attendee::Dehyphenizer-label-Beispiele">Beispiele</a>
-  </ul>
-</div>
-
 
   <div id="class-metadata">
     
@@ -106,69 +96,6 @@
 
   <section class="description">
     
-<p>Der <a href="Dehyphenizer.html">Dehyphenizer</a> … muss noch dokumentiert
-werden</p>
-
-<h3 id="class-Lingo::Attendee::Dehyphenizer-label-M%C3%B6gliche+Verlinkung">Mögliche Verlinkung<span><a href="#class-Lingo::Attendee::Dehyphenizer-label-M%C3%B6gliche+Verlinkung">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
-<dl class="rdoc-list note-list"><dt>Erwartet
-<dd>
-<p>Daten vom Typ <strong>Word</strong> z.B. von Wordsearcher, <a
-href="Decomposer.html">Decomposer</a>, Ocr_variator, Multiworder</p>
-</dd><dt>Erzeugt
-<dd>
-<p>Daten vom Typ <strong>Word</strong> (mit Attribut WA_MULTIWORD). Je
-erkannter Mehrwortgruppe wird ein zusätzliches Word-Objekt in den
-Datenstrom eingefügt. Z.B. für Ocr_variator, <a
-href="Sequencer.html">Sequencer</a>, Noneword_filter, Vector_filter</p>
-</dd></dl>
-
-<h3 id="class-Lingo::Attendee::Dehyphenizer-label-Parameter">Parameter<span><a href="#class-Lingo::Attendee::Dehyphenizer-label-Parameter">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
-
-<p>Kursiv dargestellte Parameter sind optional (ggf. mit Angabe der
-Voreinstellung). Alle anderen Parameter müssen zwingend angegeben werden.</p>
-<dl class="rdoc-list note-list"><dt><strong>in</strong>
-<dd>
-<p>siehe allgemeine Beschreibung des <a href="../Attendee.html">Attendee</a></p>
-</dd><dt><strong>out</strong>
-<dd>
-<p>siehe allgemeine Beschreibung des <a href="../Attendee.html">Attendee</a></p>
-</dd><dt><strong>source</strong>
-<dd>
-<p>siehe allgemeine Beschreibung des Dictionary</p>
-</dd><dt><strong><em>mode</em></strong>
-<dd>
-<p>(Standard: all) siehe allgemeine Beschreibung des Dictionary</p>
-</dd></dl>
-
-<h3 id="class-Lingo::Attendee::Dehyphenizer-label-Beispiele">Beispiele<span><a href="#class-Lingo::Attendee::Dehyphenizer-label-Beispiele">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
-
-<p>Bei der Verarbeitung einer normalen Textdatei mit der Ablaufkonfiguration
-<code>t1.cfg</code></p>
-
-<pre>meeting:
-  attendees:
-    - text_reader:   { out: lines, files: &#39;$(files)&#39; }
-    - tokenizer:     { in: lines, out: token }
-    - abbreviator:   { in: token, out: abbrev, source: &#39;sys-abk&#39; }
-    - word_searcher: { in: abbrev, out: words, source: &#39;sys-dic&#39; }
-    - decomposer:    { in: words, out: comps, source: &#39;sys-dic&#39; }
-    - multi_worder:  { in: comps, out: multi, source: &#39;sys-mul&#39; }
-    - debugger:      { in: multi, prompt: &#39;out&gt;&#39; }</pre>
-
-<p>ergibt die Ausgabe über den Debugger: <code>lingo -c t1 test.txt</code></p>
-
-<pre>out&gt; *FILE(&#39;test.txt&#39;)
-out&gt; &lt;Sein = [(sein/s), (sein/v)]&gt;
-out&gt; &lt;Name = [(name/s)]&gt;
-out&gt; &lt;ist = [(sein/v)]&gt;
-out&gt; &lt;johann van siegen|MUL = [(johann van siegen/m)]&gt;
-out&gt; &lt;Johann = [(johann/e)]&gt;
-out&gt; &lt;van = [(van/w)]&gt;
-out&gt; &lt;Siegen = [(sieg/s), (siegen/v), (siegen/e)]&gt;
-out&gt; :./PUNC:
-out&gt; *EOL(&#39;test.txt&#39;)
-out&gt; *EOF(&#39;test.txt&#39;)</pre>
-
   </section>
 
   
@@ -194,7 +121,7 @@ out&gt; *EOF(&#39;test.txt&#39;)</pre>
         
         <div class="method-heading">
           <span class="method-name">control</span><span
-            class="method-args">(cmd, param)</span>
+            class="method-args">(cmd, *)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -209,8 +136,8 @@ out&gt; *EOF(&#39;test.txt&#39;)</pre>
 
           
           <div class="method-source-code" id="control-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/dehyphenizer.rb, line 81</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">control</span>(<span class="ruby-identifier">cmd</span>, <span class="ruby-identifier">param</span>)
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/dehyphenizer.rb, line 83</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">control</span>(<span class="ruby-identifier">cmd</span>, <span class="ruby-operator">*</span>)
   <span class="ruby-identifier">control_multi</span>(<span class="ruby-identifier">cmd</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -242,7 +169,7 @@ out&gt; *EOF(&#39;test.txt&#39;)</pre>
 
           
           <div class="method-source-code" id="init-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/dehyphenizer.rb, line 72</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/dehyphenizer.rb, line 74</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">init</span>
   <span class="ruby-identifier">set_dic</span>
   <span class="ruby-identifier">set_gra</span>
@@ -280,7 +207,7 @@ out&gt; *EOF(&#39;test.txt&#39;)</pre>
 
           
           <div class="method-source-code" id="process_buffer-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/dehyphenizer.rb, line 85</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/dehyphenizer.rb, line 87</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">process_buffer</span>
   <span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span>, <span class="ruby-identifier">h</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">ab</span> = <span class="ruby-ivar">@buffer</span>.<span class="ruby-identifier">values_at</span>(<span class="ruby-value">0</span>, <span class="ruby-value">1</span>), <span class="ruby-string">&#39;-&#39;</span>
 
@@ -337,7 +264,7 @@ out&gt; *EOF(&#39;test.txt&#39;)</pre>
 
           
           <div class="method-source-code" id="dehyphenize-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/dehyphenizer.rb, line 107</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/dehyphenizer.rb, line 109</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">dehyphenize</span>(<span class="ruby-identifier">form</span>)
   <span class="ruby-identifier">find_word</span>(<span class="ruby-identifier">form</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">i</span>.<span class="ruby-identifier">identified?</span> }
 <span class="ruby-keyword">end</span></pre>
@@ -370,7 +297,7 @@ out&gt; *EOF(&#39;test.txt&#39;)</pre>
 
           
           <div class="method-source-code" id="dehyphenized-3F-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/dehyphenizer.rb, line 111</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/dehyphenizer.rb, line 113</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">dehyphenized?</span>(<span class="ruby-identifier">word</span>)
   <span class="ruby-identifier">word</span>.<span class="ruby-identifier">identified?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">word</span>.<span class="ruby-identifier">full_compound?</span>
 <span class="ruby-keyword">end</span></pre>

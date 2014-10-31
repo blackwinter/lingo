@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Lingo::Attendee::MultiWorder - lingo Application documentation (v1.8.5)</title>
+<title>class Lingo::Attendee::MultiWorder - lingo Application documentation (v1.8.6.pre1)</title>
 
 <link href="../../fonts.css" rel="stylesheet">
 <link href="../../rdoc.css" rel="stylesheet">
@@ -54,16 +54,6 @@
   </div>
 
   
-<div class="nav-section">
-  <h3>Table of Contents</h3>
-
-  <ul class="link-list" role="directory">
-    <li><a href="#class-Lingo::Attendee::MultiWorder-label-M%C3%B6gliche+Verlinkung">Mögliche Verlinkung</a>
-    <li><a href="#class-Lingo::Attendee::MultiWorder-label-Parameter">Parameter</a>
-    <li><a href="#class-Lingo::Attendee::MultiWorder-label-Beispiele">Beispiele</a>
-  </ul>
-</div>
-
 
   <div id="class-metadata">
     
@@ -106,79 +96,6 @@
 
   <section class="description">
     
-<p>Mit der bisher beschriebenen Vorgehensweise werden die durch den <a
-href="Tokenizer.html">Tokenizer</a> erkannten Token aufgelöst und in Words
-verwandelt und über den <a href="Abbreviator.html">Abbreviator</a> und <a
-href="Decomposer.html">Decomposer</a> auch Spezialfälle behandelt, die
-einzelne Wörter betreffen. Um jedoch auch Namen wie z.B. John F. Kennedy
-als Sinneinheit erkennen zu können, muss eine Analyse über mehrere Objekte
-erfolgen. Dies ist die Hauptaufgabe des MultiWorders. Der <a
-href="MultiWorder.html">MultiWorder</a> analysiert die Teile des
-Datenstroms, die z.B. durch Satzzeichen oder weiteren Einzelzeichen (z.B.
-&#39;(&#39;) begrenzt sind. Erkannte Mehrwortgruppen werden als
-zusätzliches Objekt in den Datenstrom mit eingefügt.</p>
-
-<h3 id="class-Lingo::Attendee::MultiWorder-label-M%C3%B6gliche+Verlinkung">Mögliche Verlinkung<span><a href="#class-Lingo::Attendee::MultiWorder-label-M%C3%B6gliche+Verlinkung">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
-<dl class="rdoc-list note-list"><dt>Erwartet
-<dd>
-<p>Daten vom Typ <strong>Word</strong> z.B. von Wordsearcher, <a
-href="Decomposer.html">Decomposer</a>, Ocr_variator, <a
-href="MultiWorder.html">MultiWorder</a></p>
-</dd><dt>Erzeugt
-<dd>
-<p>Daten vom Typ <strong>Word</strong> (mit Attribut WA_MULTIWORD). Je
-erkannter Mehrwortgruppe wird ein zusätzliches Word-Objekt in den
-Datenstrom eingefügt. Z.B. für Ocr_variator, <a
-href="Sequencer.html">Sequencer</a>, Noneword_filter, Vector_filter</p>
-</dd></dl>
-
-<h3 id="class-Lingo::Attendee::MultiWorder-label-Parameter">Parameter<span><a href="#class-Lingo::Attendee::MultiWorder-label-Parameter">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
-
-<p>Kursiv dargestellte Parameter sind optional (ggf. mit Angabe der
-Voreinstellung). Alle anderen Parameter müssen zwingend angegeben werden.</p>
-<dl class="rdoc-list note-list"><dt><strong>in</strong>
-<dd>
-<p>siehe allgemeine Beschreibung des <a href="../Attendee.html">Attendee</a></p>
-</dd><dt><strong>out</strong>
-<dd>
-<p>siehe allgemeine Beschreibung des <a href="../Attendee.html">Attendee</a></p>
-</dd><dt><strong>source</strong>
-<dd>
-<p>siehe allgemeine Beschreibung des Dictionary</p>
-</dd><dt><strong><em>mode</em></strong>
-<dd>
-<p>(Standard: all) siehe allgemeine Beschreibung des Dictionary</p>
-</dd></dl>
-
-<h3 id="class-Lingo::Attendee::MultiWorder-label-Beispiele">Beispiele<span><a href="#class-Lingo::Attendee::MultiWorder-label-Beispiele">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
-
-<p>Bei der Verarbeitung einer normalen Textdatei mit der Ablaufkonfiguration
-<code>t1.cfg</code></p>
-
-<pre>meeting:
-  attendees:
-    - text_reader:   { out: lines, files: &#39;$(files)&#39; }
-    - tokenizer:     { in: lines, out: token }
-    - abbreviator:   { in: token, out: abbrev, source: &#39;sys-abk&#39; }
-    - word_searcher: { in: abbrev, out: words, source: &#39;sys-dic&#39; }
-    - decomposer:    { in: words, out: comps, source: &#39;sys-dic&#39; }
-    - multi_worder:  { in: comps, out: multi, source: &#39;sys-mul&#39; }
-    - debugger:      { in: multi, prompt: &#39;out&gt;&#39; }</pre>
-
-<p>ergibt die Ausgabe über den Debugger: <code>lingo -c t1 test.txt</code></p>
-
-<pre>out&gt; *FILE(&#39;test.txt&#39;)
-out&gt; &lt;Sein = [(sein/s), (sein/v)]&gt;
-out&gt; &lt;Name = [(name/s)]&gt;
-out&gt; &lt;ist = [(sein/v)]&gt;
-out&gt; &lt;johann van siegen|MUL = [(johann van siegen/m)]&gt;
-out&gt; &lt;Johann = [(johann/e)]&gt;
-out&gt; &lt;van = [(van/w)]&gt;
-out&gt; &lt;Siegen = [(sieg/s), (siegen/v), (siegen/e)]&gt;
-out&gt; :./PUNC:
-out&gt; *EOL(&#39;test.txt&#39;)
-out&gt; *EOF(&#39;test.txt&#39;)</pre>
-
   </section>
 
   
@@ -204,7 +121,7 @@ out&gt; *EOF(&#39;test.txt&#39;)</pre>
         
         <div class="method-heading">
           <span class="method-name">control</span><span
-            class="method-args">(cmd, param)</span>
+            class="method-args">(cmd, *)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -219,8 +136,8 @@ out&gt; *EOF(&#39;test.txt&#39;)</pre>
 
           
           <div class="method-source-code" id="control-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/multi_worder.rb, line 114</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">control</span>(<span class="ruby-identifier">cmd</span>, <span class="ruby-identifier">param</span>)
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/multi_worder.rb, line 116</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">control</span>(<span class="ruby-identifier">cmd</span>, <span class="ruby-operator">*</span>)
   <span class="ruby-identifier">control_multi</span>(<span class="ruby-identifier">cmd</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -252,7 +169,7 @@ out&gt; *EOF(&#39;test.txt&#39;)</pre>
 
           
           <div class="method-source-code" id="init-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/multi_worder.rb, line 79</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/multi_worder.rb, line 81</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">init</span>
   <span class="ruby-comment"># combine lexical variants?</span>
   <span class="ruby-comment">#</span>
@@ -316,7 +233,7 @@ out&gt; *EOF(&#39;test.txt&#39;)</pre>
 
           
           <div class="method-source-code" id="process_buffer-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/multi_worder.rb, line 118</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/multi_worder.rb, line 120</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">process_buffer</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">form_at</span>(<span class="ruby-value">0</span>) <span class="ruby-operator">==</span> <span class="ruby-constant">CHAR_PUNCT</span>
     <span class="ruby-keyword">unless</span> (<span class="ruby-identifier">res</span> = <span class="ruby-identifier">check_multiword_key</span>(<span class="ruby-value">3</span>)).<span class="ruby-identifier">empty?</span>
@@ -383,13 +300,13 @@ out&gt; *EOF(&#39;test.txt&#39;)</pre>
 
         <div class="method-description">
           
-          <p>Prüft einen definiert langen Schlüssel ab Position 0 im Buffer</p>
+          
           
           
 
           
           <div class="method-source-code" id="check_multiword_key-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/multi_worder.rb, line 175</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/multi_worder.rb, line 176</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">check_multiword_key</span>(<span class="ruby-identifier">len</span>)
   <span class="ruby-keyword">return</span> [] <span class="ruby-keyword">if</span> <span class="ruby-identifier">valid_tokens_in_buffer</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">len</span>
 
@@ -454,7 +371,7 @@ out&gt; *EOF(&#39;test.txt&#39;)</pre>
 
           
           <div class="method-source-code" id="create_and_forward_multiword-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/multi_worder.rb, line 156</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/multi_worder.rb, line 158</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create_and_forward_multiword</span>(<span class="ruby-identifier">len</span>, <span class="ruby-identifier">lex</span>)
   <span class="ruby-identifier">pos</span>, <span class="ruby-identifier">parts</span> = <span class="ruby-value">0</span>, []
 

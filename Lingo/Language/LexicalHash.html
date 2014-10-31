@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Lingo::Language::LexicalHash - lingo Application documentation (v1.8.5)</title>
+<title>class Lingo::Language::LexicalHash - lingo Application documentation (v1.8.6.pre1)</title>
 
 <link href="../../fonts.css" rel="stylesheet">
 <link href="../../rdoc.css" rel="stylesheet">
@@ -94,12 +94,6 @@
 
   <section class="description">
     
-<p>Die Klasse <a href="LexicalHash.html">LexicalHash</a> ermöglicht den
-Zugriff auf die Lingodatenbanken. Im Gegensatz zur Klasse <a
-href="../Database.html">Database</a>, welche nur Strings als Ergebnis
-zurück gibt, wird hier als Ergebnis ein Array von Lexical-Objekten zurück
-gegeben.</p>
-
   </section>
 
   
@@ -154,7 +148,7 @@ gegeben.</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/lingo/language/lexical_hash.rb, line 44</span>
+            <pre><span class="ruby-comment"># File lib/lingo/language/lexical_hash.rb, line 46</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">lingo</span>)
   <span class="ruby-ivar">@src</span> = <span class="ruby-constant">Database</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">lingo</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -187,7 +181,7 @@ gegeben.</p>
 
           
           <div class="method-source-code" id="open-source">
-            <pre><span class="ruby-comment"># File lib/lingo/language/lexical_hash.rb, line 38</span>
+            <pre><span class="ruby-comment"># File lib/lingo/language/lexical_hash.rb, line 40</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">open</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
   <span class="ruby-keyword">yield</span> <span class="ruby-identifier">lexical_hash</span> = <span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
 <span class="ruby-keyword">ensure</span>
@@ -230,7 +224,7 @@ gegeben.</p>
 
           
           <div class="method-source-code" id="5B-5D-source">
-            <pre><span class="ruby-comment"># File lib/lingo/language/lexical_hash.rb, line 52</span>
+            <pre><span class="ruby-comment"># File lib/lingo/language/lexical_hash.rb, line 54</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-identifier">key</span>)
   <span class="ruby-identifier">rec</span> = <span class="ruby-ivar">@src</span>[<span class="ruby-constant">Unicode</span>.<span class="ruby-identifier">downcase</span>(<span class="ruby-identifier">key</span>)] <span class="ruby-keyword">or</span> <span class="ruby-keyword">return</span>
 
@@ -273,7 +267,7 @@ gegeben.</p>
 
           
           <div class="method-source-code" id="close-source">
-            <pre><span class="ruby-comment"># File lib/lingo/language/lexical_hash.rb, line 48</span>
+            <pre><span class="ruby-comment"># File lib/lingo/language/lexical_hash.rb, line 50</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">close</span>
   <span class="ruby-ivar">@src</span>.<span class="ruby-identifier">close</span>
 <span class="ruby-keyword">end</span></pre>

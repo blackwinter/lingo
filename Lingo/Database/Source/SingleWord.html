@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Lingo::Database::Source::SingleWord - lingo Application documentation (v1.8.5)</title>
+<title>class Lingo::Database::Source::SingleWord - lingo Application documentation (v1.8.6.pre1)</title>
 
 <link href="../../../fonts.css" rel="stylesheet">
 <link href="../../../rdoc.css" rel="stylesheet">
@@ -90,12 +90,6 @@
 
   <section class="description">
     
-<p>Abgeleitet von <a href="../Source.html">Source</a> behandelt die Klasse
-Dateien mit dem Format <code>SingleWord</code>. Eine Zeile
-<code>&quot;Fachbegriff\n&quot;</code> wird gewandelt in <code>[
-&#39;fachbegriff&#39;, [&#39;#s&#39;] ]</code>. Die Wortklasse kann über
-den Parameter <code>def-wc</code> beeinflusst werden.</p>
-
   </section>
 
   
@@ -141,7 +135,7 @@ den Parameter <code>def-wc</code> beeinflusst werden.</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/lingo/database/source/single_word.rb, line 38</span>
+            <pre><span class="ruby-comment"># File lib/lingo/database/source/single_word.rb, line 40</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">lingo</span>)
   <span class="ruby-keyword">super</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">lingo</span>, <span class="ruby-constant">Language</span><span class="ruby-operator">::</span><span class="ruby-constant">LA_NOUN</span>)
   <span class="ruby-ivar">@pat</span> = <span class="ruby-node">/^(#{@wrd})$/</span>
@@ -184,7 +178,7 @@ den Parameter <code>def-wc</code> beeinflusst werden.</p>
 
           
           <div class="method-source-code" id="convert_line-source">
-            <pre><span class="ruby-comment"># File lib/lingo/database/source/single_word.rb, line 46</span>
+            <pre><span class="ruby-comment"># File lib/lingo/database/source/single_word.rb, line 48</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">convert_line</span>(<span class="ruby-identifier">line</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span>)
   [<span class="ruby-identifier">k</span> = <span class="ruby-identifier">key</span>.<span class="ruby-identifier">strip</span>, <span class="ruby-node">%W[#{k}##{k.include?(&#39; &#39;) ? @mul : @def}]</span>]
 <span class="ruby-keyword">end</span></pre>

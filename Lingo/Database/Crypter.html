@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Lingo::Database::Crypter - lingo Application documentation (v1.8.5)</title>
+<title>class Lingo::Database::Crypter - lingo Application documentation (v1.8.6.pre1)</title>
 
 <link href="../../fonts.css" rel="stylesheet">
 <link href="../../rdoc.css" rel="stylesheet">
@@ -94,9 +94,6 @@
 
   <section class="description">
     
-<p><a href="Crypter.html">Crypter</a> ermöglicht die Ver- und Entschlüsselung
-von Wörterbüchern</p>
-
   </section>
 
   
@@ -137,7 +134,7 @@ von Wörterbüchern</p>
 
           
           <div class="method-source-code" id="digest-source">
-            <pre><span class="ruby-comment"># File lib/lingo/database/crypter.rb, line 37</span>
+            <pre><span class="ruby-comment"># File lib/lingo/database/crypter.rb, line 35</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">digest</span>(<span class="ruby-identifier">key</span>)
   <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA1</span>.<span class="ruby-identifier">hexdigest</span>(<span class="ruby-identifier">key</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -178,7 +175,7 @@ von Wörterbüchern</p>
 
           
           <div class="method-source-code" id="decode-source">
-            <pre><span class="ruby-comment"># File lib/lingo/database/crypter.rb, line 45</span>
+            <pre><span class="ruby-comment"># File lib/lingo/database/crypter.rb, line 43</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">decode</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span>)
   <span class="ruby-identifier">crypt</span>(<span class="ruby-value">:decrypt</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span>).<span class="ruby-identifier">force_encoding</span>(<span class="ruby-constant">ENC</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -211,7 +208,7 @@ von Wörterbüchern</p>
 
           
           <div class="method-source-code" id="encode-source">
-            <pre><span class="ruby-comment"># File lib/lingo/database/crypter.rb, line 41</span>
+            <pre><span class="ruby-comment"># File lib/lingo/database/crypter.rb, line 39</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">encode</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span>)
   [<span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">digest</span>(<span class="ruby-identifier">key</span>), <span class="ruby-identifier">crypt</span>(<span class="ruby-value">:encrypt</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span>)]
 <span class="ruby-keyword">end</span></pre>
@@ -252,7 +249,7 @@ von Wörterbüchern</p>
 
           
           <div class="method-source-code" id="crypt-source">
-            <pre><span class="ruby-comment"># File lib/lingo/database/crypter.rb, line 51</span>
+            <pre><span class="ruby-comment"># File lib/lingo/database/crypter.rb, line 49</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">crypt</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span>)
   <span class="ruby-identifier">cipher</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&#39;aes-128-cbc&#39;</span>).<span class="ruby-identifier">send</span>(<span class="ruby-identifier">method</span>)
   <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">iv</span> = <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">key</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">digest</span>(<span class="ruby-identifier">key</span>)

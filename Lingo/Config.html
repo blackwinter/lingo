@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Lingo::Config - lingo Application documentation (v1.8.5)</title>
+<title>class Lingo::Config - lingo Application documentation (v1.8.6.pre1)</title>
 
 <link href="../fonts.css" rel="stylesheet">
 <link href="../rdoc.css" rel="stylesheet">
@@ -166,7 +166,9 @@
   <span class="ruby-identifier">load_config</span>(<span class="ruby-string">&#39;language&#39;</span>, <span class="ruby-value">:lang</span>)
   <span class="ruby-identifier">load_config</span>(<span class="ruby-string">&#39;config&#39;</span>)
 
-  <span class="ruby-identifier">deprecate</span>(<span class="ruby-value">:textreader</span>, <span class="ruby-value">:text_reader</span>) <span class="ruby-keyword">if</span> <span class="ruby-constant">Array</span>(<span class="ruby-keyword">self</span>[<span class="ruby-string">&#39;meeting/attendees&#39;</span>]).<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:keys</span>).<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&#39;textreader&#39;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">Array</span>(<span class="ruby-keyword">self</span>[<span class="ruby-string">&#39;meeting/attendees&#39;</span>]).<span class="ruby-identifier">flat_map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:keys</span>).<span class="ruby-identifier">include?</span>(<span class="ruby-string">&#39;textreader&#39;</span>)
+    <span class="ruby-identifier">deprecate</span>(<span class="ruby-value">:textreader</span>, <span class="ruby-value">:text_reader</span>)
+  <span class="ruby-keyword">end</span>
 
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">r</span> = <span class="ruby-identifier">get</span>(<span class="ruby-string">&#39;meeting/attendees&#39;</span>, <span class="ruby-string">&#39;text_reader&#39;</span>) <span class="ruby-operator">||</span>
          <span class="ruby-identifier">get</span>(<span class="ruby-string">&#39;meeting/attendees&#39;</span>, <span class="ruby-string">&#39;textreader&#39;</span>)  <span class="ruby-comment"># DEPRECATE textreader</span>
@@ -216,7 +218,7 @@
 
           
           <div class="method-source-code" id="5B-5D-source">
-            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 62</span>
+            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 64</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-identifier">key</span>)
   <span class="ruby-identifier">key_to_nodes</span>(<span class="ruby-identifier">key</span>).<span class="ruby-identifier">inject</span>(<span class="ruby-identifier">to_h</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">hash</span>, <span class="ruby-identifier">node</span><span class="ruby-operator">|</span> <span class="ruby-identifier">hash</span>[<span class="ruby-identifier">node</span>] }
 <span class="ruby-keyword">end</span></pre>
@@ -249,7 +251,7 @@
 
           
           <div class="method-source-code" id="5B-5D-3D-source">
-            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 66</span>
+            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 68</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">[]=</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span>)
   <span class="ruby-identifier">nodes</span> = <span class="ruby-identifier">key_to_nodes</span>(<span class="ruby-identifier">key</span>); <span class="ruby-identifier">node</span> = <span class="ruby-identifier">nodes</span>.<span class="ruby-identifier">pop</span>
   (<span class="ruby-keyword">self</span>[<span class="ruby-identifier">nodes_to_key</span>(<span class="ruby-identifier">nodes</span>)] <span class="ruby-operator">||=</span> {})[<span class="ruby-identifier">node</span>] = <span class="ruby-identifier">val</span>
@@ -268,7 +270,7 @@
         
         <div class="method-heading">
           <span class="method-name">deprecate</span><span
-            class="method-args">(old, new, obj = self)</span>
+            class="method-args">(old, new, obj = self, what = :option)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -283,11 +285,11 @@
 
           
           <div class="method-source-code" id="deprecate-source">
-            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 108</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">deprecate</span>(<span class="ruby-identifier">old</span>, <span class="ruby-identifier">new</span>, <span class="ruby-identifier">obj</span> = <span class="ruby-keyword">self</span>)
+            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 110</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">deprecate</span>(<span class="ruby-identifier">old</span>, <span class="ruby-identifier">new</span>, <span class="ruby-identifier">obj</span> = <span class="ruby-keyword">self</span>, <span class="ruby-identifier">what</span> = <span class="ruby-value">:option</span>)
   <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@deprecated</span>[[<span class="ruby-identifier">source</span> = <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp">/\ALingo::/</span>, <span class="ruby-string">&#39;&#39;</span>), <span class="ruby-identifier">old</span>]]
     <span class="ruby-identifier">warn</span>(
-      <span class="ruby-node">&quot;DEPRECATION WARNING: #{source} option `#{old}&#39; is deprecated &quot;</span> <span class="ruby-operator">&lt;&lt;</span>
+      <span class="ruby-node">&quot;DEPRECATION WARNING: #{source} #{what} `#{old}&#39; is deprecated &quot;</span> <span class="ruby-operator">&lt;&lt;</span>
       <span class="ruby-node">&quot;and will be removed in Lingo 1.9. Please use `#{new}&#39; instead.&quot;</span>
     )
   <span class="ruby-keyword">end</span>
@@ -321,7 +323,7 @@
 
           
           <div class="method-source-code" id="get-source">
-            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 71</span>
+            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 73</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get</span>(<span class="ruby-identifier">key</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">names</span>)
   <span class="ruby-identifier">val</span> = <span class="ruby-keyword">self</span>[<span class="ruby-identifier">key</span>]
 
@@ -367,7 +369,7 @@
 
           
           <div class="method-source-code" id="quit-source">
-            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 104</span>
+            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 106</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">quit</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
   <span class="ruby-ivar">@cli</span>.<span class="ruby-identifier">send</span>(<span class="ruby-value">:quit</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -400,7 +402,7 @@
 
           
           <div class="method-source-code" id="stderr-source">
-            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 96</span>
+            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 98</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">stderr</span>
   <span class="ruby-ivar">@cli</span>.<span class="ruby-identifier">stderr</span>
 <span class="ruby-keyword">end</span></pre>
@@ -433,7 +435,7 @@
 
           
           <div class="method-source-code" id="stdin-source">
-            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 88</span>
+            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 90</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">stdin</span>
   <span class="ruby-ivar">@cli</span>.<span class="ruby-identifier">stdin</span>
 <span class="ruby-keyword">end</span></pre>
@@ -466,7 +468,7 @@
 
           
           <div class="method-source-code" id="stdout-source">
-            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 92</span>
+            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 94</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">stdout</span>
   <span class="ruby-ivar">@cli</span>.<span class="ruby-identifier">stdout</span>
 <span class="ruby-keyword">end</span></pre>
@@ -499,7 +501,7 @@
 
           
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 58</span>
+            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 60</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_h</span>
   <span class="ruby-ivar">@opts</span>
 <span class="ruby-keyword">end</span></pre>
@@ -532,7 +534,7 @@
 
           
           <div class="method-source-code" id="warn-source">
-            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 100</span>
+            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 102</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">warn</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">msg</span>)
   <span class="ruby-identifier">stderr</span>.<span class="ruby-identifier">puts</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">msg</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -573,7 +575,7 @@
 
           
           <div class="method-source-code" id="key_to_nodes-source">
-            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 119</span>
+            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 121</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">key_to_nodes</span>(<span class="ruby-identifier">key</span>)
   <span class="ruby-identifier">key</span>.<span class="ruby-identifier">downcase</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&#39;/&#39;</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -606,7 +608,7 @@
 
           
           <div class="method-source-code" id="load_config-source">
-            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 127</span>
+            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 129</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">load_config</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">type</span> = <span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_sym</span>)
   <span class="ruby-identifier">file</span> = <span class="ruby-constant">Lingo</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">type</span>, <span class="ruby-ivar">@opts</span>[<span class="ruby-identifier">key</span>]) { <span class="ruby-identifier">quit</span> }
   <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">encoding</span><span class="ruby-operator">:</span> <span class="ruby-constant">ENC</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">update</span>(<span class="ruby-constant">SafeYAML</span>.<span class="ruby-identifier">load</span>(<span class="ruby-identifier">f</span>)) }
@@ -643,7 +645,7 @@
 
           
           <div class="method-source-code" id="nodes_to_key-source">
-            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 123</span>
+            <pre><span class="ruby-comment"># File lib/lingo/config.rb, line 125</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">nodes_to_key</span>(<span class="ruby-identifier">nodes</span>)
   <span class="ruby-identifier">nodes</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;/&#39;</span>)
 <span class="ruby-keyword">end</span></pre>

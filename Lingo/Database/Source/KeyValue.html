@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Lingo::Database::Source::KeyValue - lingo Application documentation (v1.8.5)</title>
+<title>class Lingo::Database::Source::KeyValue - lingo Application documentation (v1.8.6.pre1)</title>
 
 <link href="../../../fonts.css" rel="stylesheet">
 <link href="../../../rdoc.css" rel="stylesheet">
@@ -90,14 +90,6 @@
 
   <section class="description">
     
-<p>Abgeleitet von <a href="../Source.html">Source</a> behandelt die Klasse
-Dateien mit dem Format <code>KeyValue</code>. Eine Zeile
-<code>&quot;Fachbegriff*Fachterminus\n&quot;</code> wird gewandelt in
-<code>[ &#39;fachbegriff&#39;, [&#39;fachterminus#s&#39;] ]</code>. Die
-Wortklasse kann über den Parameter <code>def-wc</code> beeinflusst werden.
-Der Trenner zwischen Schlüssel und Projektion kann über den Parameter
-<code>separator</code> geändert werden.</p>
-
   </section>
 
   
@@ -157,7 +149,7 @@ Der Trenner zwischen Schlüssel und Projektion kann über den Parameter
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/lingo/database/source/key_value.rb, line 41</span>
+            <pre><span class="ruby-comment"># File lib/lingo/database/source/key_value.rb, line 43</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">lingo</span>)
   <span class="ruby-keyword">super</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">lingo</span>, <span class="ruby-constant">Language</span><span class="ruby-operator">::</span><span class="ruby-constant">LA_UNKNOWN</span>)
   <span class="ruby-ivar">@pat</span> = <span class="ruby-node">/^(#{@wrd})#{Regexp.escape(@sep ||= DEFAULT_SEPARATOR)}(#{@wrd})$/</span>
@@ -199,7 +191,7 @@ Der Trenner zwischen Schlüssel und Projektion kann über den Parameter
 
           
           <div class="method-source-code" id="convert_line-source">
-            <pre><span class="ruby-comment"># File lib/lingo/database/source/key_value.rb, line 48</span>
+            <pre><span class="ruby-comment"># File lib/lingo/database/source/key_value.rb, line 50</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">convert_line</span>(<span class="ruby-identifier">line</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span>)
   [<span class="ruby-identifier">key</span>.<span class="ruby-identifier">strip</span>, <span class="ruby-node">%W[#{val.strip}##{@def}]</span>]
 <span class="ruby-keyword">end</span></pre>

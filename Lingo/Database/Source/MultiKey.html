@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Lingo::Database::Source::MultiKey - lingo Application documentation (v1.8.5)</title>
+<title>class Lingo::Database::Source::MultiKey - lingo Application documentation (v1.8.6.pre1)</title>
 
 <link href="../../../fonts.css" rel="stylesheet">
 <link href="../../../rdoc.css" rel="stylesheet">
@@ -92,18 +92,6 @@
 
   <section class="description">
     
-<p>Abgeleitet von <a href="../Source.html">Source</a> behandelt die Klasse
-Dateien mit dem Format <code>MultiKey</code>. Eine Zeile
-<code>&quot;Triumph;Sieg;Erfolg\n&quot;</code> wird gewandelt in <code>[
-&#39;triumph&#39;, [&#39;sieg&#39;, &#39;erfolg&#39;] ]</code>. Die
-Sonderbehandlung erfolgt in der Methode <a
-href="../../Database.html#method-i-convert">Lingo::Database#convert</a>, wo
-daraus Schlüssel-Werte-Paare in der Form <code>[ &#39;sieg&#39;,
-[&#39;triumph&#39;] ]</code> und <code>[ &#39;erfolg&#39;,
-[&#39;triumph&#39;] ]</code> erzeugt werden. Der Trenner zwischen Schlüssel
-und Projektion kann über den Parameter <code>separator</code> geändert
-werden.</p>
-
   </section>
 
   
@@ -163,7 +151,7 @@ werden.</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/lingo/database/source/multi_key.rb, line 42</span>
+            <pre><span class="ruby-comment"># File lib/lingo/database/source/multi_key.rb, line 44</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">lingo</span>)
   <span class="ruby-keyword">super</span>
   <span class="ruby-ivar">@pat</span> = <span class="ruby-node">/^#{@wrd}(?:#{Regexp.escape(@sep ||= DEFAULT_SEPARATOR)}#{@wrd})*$/</span>
@@ -205,7 +193,7 @@ werden.</p>
 
           
           <div class="method-source-code" id="set-source">
-            <pre><span class="ruby-comment"># File lib/lingo/database/source/multi_key.rb, line 47</span>
+            <pre><span class="ruby-comment"># File lib/lingo/database/source/multi_key.rb, line 49</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">set</span>(<span class="ruby-identifier">db</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span>)
   <span class="ruby-identifier">key</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;##{@def}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@def</span>
   <span class="ruby-identifier">val</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">db</span>[<span class="ruby-identifier">v</span>] = [<span class="ruby-identifier">key</span>] }
@@ -247,7 +235,7 @@ werden.</p>
 
           
           <div class="method-source-code" id="convert_line-source">
-            <pre><span class="ruby-comment"># File lib/lingo/database/source/multi_key.rb, line 54</span>
+            <pre><span class="ruby-comment"># File lib/lingo/database/source/multi_key.rb, line 56</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">convert_line</span>(<span class="ruby-identifier">line</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span>)
   <span class="ruby-identifier">values</span> = <span class="ruby-identifier">line</span>.<span class="ruby-identifier">split</span>(<span class="ruby-ivar">@sep</span>).<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">i</span>.<span class="ruby-identifier">strip!</span> }
   [<span class="ruby-identifier">values</span>.<span class="ruby-identifier">shift</span>, <span class="ruby-identifier">values</span>]
