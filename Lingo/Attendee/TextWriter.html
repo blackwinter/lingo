@@ -4,21 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Lingo::Attendee::TextWriter - lingo Application documentation (v1.8.6.pre1)</title>
-
-<link href="../../fonts.css" rel="stylesheet">
-<link href="../../rdoc.css" rel="stylesheet">
+<title>class Lingo::Attendee::TextWriter - lingo Application documentation (v1.8.5)</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
 </script>
 
 <script src="../../js/jquery.js"></script>
-<script src="../../js/navigation.js"></script>
-<script src="../../js/search_index.js"></script>
-<script src="../../js/search.js"></script>
-<script src="../../js/searcher.js"></script>
 <script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
 
 
 <body id="top" role="document" class="class">
@@ -111,9 +108,9 @@
     
 
     
-     <section id="protected-instance-5Buntitled-5D-method-details" class="method-section">
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
        <header>
-         <h3>Protected Instance Methods</h3>
+         <h3>Public Instance Methods</h3>
        </header>
 
     
@@ -136,7 +133,7 @@
 
           
           <div class="method-source-code" id="control-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/text_writer.rb, line 94</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/text_writer.rb, line 92</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">control</span>(<span class="ruby-identifier">cmd</span>, <span class="ruby-identifier">param</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-operator">*</span>)
   <span class="ruby-keyword">case</span> <span class="ruby-identifier">cmd</span>
     <span class="ruby-keyword">when</span> <span class="ruby-value">:LIR</span>
@@ -201,7 +198,7 @@
 
           
           <div class="method-source-code" id="init-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/text_writer.rb, line 83</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/text_writer.rb, line 81</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">init</span>
   <span class="ruby-ivar">@ext</span> = <span class="ruby-identifier">get_key</span>(<span class="ruby-string">&#39;ext&#39;</span>, <span class="ruby-string">&#39;txt2&#39;</span>)
   <span class="ruby-ivar">@lir</span> = <span class="ruby-identifier">get_key</span>(<span class="ruby-string">&#39;lir-format&#39;</span>, <span class="ruby-keyword">false</span>)
@@ -241,7 +238,7 @@
 
           
           <div class="method-source-code" id="process-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/text_writer.rb, line 130</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/text_writer.rb, line 128</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">process</span>(<span class="ruby-identifier">obj</span>)
   <span class="ruby-identifier">obj</span> = <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">form</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">WordForm</span>)
 
@@ -287,7 +284,7 @@
 
           
           <div class="method-source-code" id="flush_lir_buffer-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/text_writer.rb, line 141</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/text_writer.rb, line 139</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">flush_lir_buffer</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@lir_rec_no</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">||</span> <span class="ruby-ivar">@lir_rec_buf</span>.<span class="ruby-identifier">empty?</span>
     <span class="ruby-identifier">buf</span> = [<span class="ruby-ivar">@lir_rec_no</span>, <span class="ruby-ivar">@lir_rec_buf</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@sep</span>), <span class="ruby-string">&quot;\n&quot;</span>]
@@ -327,7 +324,7 @@
 
           
           <div class="method-source-code" id="stdout-3F-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/text_writer.rb, line 152</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/text_writer.rb, line 150</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">stdout?</span>(<span class="ruby-identifier">filename</span>)
   <span class="ruby-node">%w[STDOUT -]</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">filename</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -349,7 +346,7 @@
 
 <footer id="validator-badges" role="contentinfo">
   <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://rdoc.rubyforge.org">RDoc</a> 4.1.2.
-  <p>Based on <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

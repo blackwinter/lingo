@@ -4,21 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Lingo::Attendee::NonewordFilter - lingo Application documentation (v1.8.6.pre1)</title>
-
-<link href="../../fonts.css" rel="stylesheet">
-<link href="../../rdoc.css" rel="stylesheet">
+<title>class Lingo::Attendee::NonewordFilter - lingo Application documentation (v1.8.5)</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
 </script>
 
 <script src="../../js/jquery.js"></script>
-<script src="../../js/navigation.js"></script>
-<script src="../../js/search_index.js"></script>
-<script src="../../js/search.js"></script>
-<script src="../../js/searcher.js"></script>
 <script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
 
 
 <body id="top" role="document" class="class">
@@ -109,9 +106,9 @@
     
 
     
-     <section id="protected-instance-5Buntitled-5D-method-details" class="method-section">
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
        <header>
-         <h3>Protected Instance Methods</h3>
+         <h3>Public Instance Methods</h3>
        </header>
 
     
@@ -134,11 +131,11 @@
 
           
           <div class="method-source-code" id="control-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/noneword_filter.rb, line 82</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/noneword_filter.rb, line 80</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">control</span>(<span class="ruby-identifier">cmd</span>, <span class="ruby-operator">*</span>)
   <span class="ruby-keyword">case</span> <span class="ruby-identifier">cmd</span>
     <span class="ruby-keyword">when</span> <span class="ruby-value">:FILE</span>   <span class="ruby-keyword">then</span> <span class="ruby-ivar">@nonewords</span>.<span class="ruby-identifier">clear</span>
-    <span class="ruby-keyword">when</span> <span class="ruby-value">:EOL</span>    <span class="ruby-keyword">then</span> <span class="ruby-identifier">skip_command</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-value">:EOL</span>    <span class="ruby-keyword">then</span> <span class="ruby-value">:skip_command</span>
     <span class="ruby-keyword">when</span> <span class="ruby-value">:RECORD</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">send_nonewords</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@dict</span>
     <span class="ruby-keyword">when</span> <span class="ruby-value">:EOF</span>    <span class="ruby-keyword">then</span> <span class="ruby-identifier">send_nonewords</span>
   <span class="ruby-keyword">end</span>
@@ -172,7 +169,7 @@
 
           
           <div class="method-source-code" id="init-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/noneword_filter.rb, line 74</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/noneword_filter.rb, line 72</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">init</span>
   <span class="ruby-ivar">@sort</span> = <span class="ruby-identifier">get_key</span>(<span class="ruby-string">&#39;sort&#39;</span>, <span class="ruby-operator">!</span><span class="ruby-constant">ENV</span>[<span class="ruby-string">&#39;LINGO_NO_SORT&#39;</span>])
   <span class="ruby-ivar">@dict</span> = <span class="ruby-identifier">get_key</span>(<span class="ruby-string">&#39;dict&#39;</span>, <span class="ruby-keyword">false</span>)
@@ -209,7 +206,7 @@
 
           
           <div class="method-source-code" id="process-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/noneword_filter.rb, line 91</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/noneword_filter.rb, line 89</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">process</span>(<span class="ruby-identifier">obj</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Word</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">unknown?</span>
     <span class="ruby-identifier">non</span> = <span class="ruby-constant">Unicode</span>.<span class="ruby-identifier">downcase</span>(<span class="ruby-identifier">obj</span>.<span class="ruby-identifier">form</span>)
@@ -254,7 +251,7 @@
 
           
           <div class="method-source-code" id="send_nonewords-source">
-            <pre><span class="ruby-comment"># File lib/lingo/attendee/noneword_filter.rb, line 101</span>
+            <pre><span class="ruby-comment"># File lib/lingo/attendee/noneword_filter.rb, line 99</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">send_nonewords</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@nonewords</span>.<span class="ruby-identifier">empty?</span>
     <span class="ruby-ivar">@nonewords</span>.<span class="ruby-identifier">uniq!</span>
@@ -279,7 +276,7 @@
 
 <footer id="validator-badges" role="contentinfo">
   <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://rdoc.rubyforge.org">RDoc</a> 4.1.2.
-  <p>Based on <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 
