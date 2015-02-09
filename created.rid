@@ -1,8 +1,8 @@
-Tue, 06 Jan 2015 16:10:07 +0100
-README	Tue, 06 Jan 2015 16:03:33 +0100
+Mon, 09 Feb 2015 11:25:08 +0100
+README	Fri, 06 Feb 2015 13:21:10 +0100
 COPYING	Wed, 06 Mar 2013 13:57:17 +0100
-ChangeLog	Fri, 12 Dec 2014 10:16:49 +0100
-lib/lingo.rb	Tue, 06 Jan 2015 16:09:41 +0100
+ChangeLog	Mon, 09 Feb 2015 11:20:31 +0100
+lib/lingo.rb	Fri, 06 Feb 2015 09:59:05 +0100
 lib/lingo/app.rb	Tue, 02 Dec 2014 16:23:49 +0100
 lib/lingo/cli.rb	Tue, 02 Dec 2014 16:26:13 +0100
 lib/lingo/ctl.rb	Thu, 11 Dec 2014 17:06:14 +0100
@@ -11,9 +11,9 @@ lib/lingo/web.rb	Thu, 11 Dec 2014 17:06:14 +0100
 lib/lingo/call.rb	Tue, 02 Dec 2014 16:23:49 +0100
 lib/lingo/debug.rb	Thu, 11 Dec 2014 17:06:14 +0100
 lib/lingo/error.rb	Tue, 02 Dec 2014 16:23:49 +0100
-lib/lingo/config.rb	Thu, 11 Dec 2014 17:06:14 +0100
-lib/lingo/version.rb	Mon, 15 Dec 2014 11:53:19 +0100
-lib/lingo/attendee.rb	Thu, 11 Dec 2014 17:06:14 +0100
+lib/lingo/config.rb	Fri, 06 Feb 2015 12:49:13 +0100
+lib/lingo/version.rb	Mon, 09 Feb 2015 11:20:41 +0100
+lib/lingo/attendee.rb	Fri, 06 Feb 2015 12:48:47 +0100
 lib/lingo/database.rb	Thu, 11 Dec 2014 17:06:14 +0100
 lib/lingo/language.rb	Tue, 02 Dec 2014 16:23:49 +0100
 lib/lingo/progress.rb	Tue, 02 Dec 2014 16:23:49 +0100
