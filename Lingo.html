@@ -388,7 +388,7 @@ configuration files.</p>
 
           
           <div class="method-source-code" id="ctl-source">
-            <pre><span class="ruby-comment"># File lib/lingo/ctl.rb, line 295</span>
+            <pre><span class="ruby-comment"># File lib/lingo/ctl.rb, line 143</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ctl</span>
   <span class="ruby-constant">Ctl</span>.<span class="ruby-identifier">ctl</span>
 <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">err</span>
@@ -1123,8 +1123,7 @@ configuration files.</p>
           <div class="method-source-code" id="invite-source">
             <pre><span class="ruby-comment"># File lib/lingo.rb, line 266</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">invite</span>(<span class="ruby-identifier">list</span> = <span class="ruby-identifier">config</span>[<span class="ruby-string">&#39;meeting/attendees&#39;</span>])
-  <span class="ruby-identifier">supplier</span>   = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">nest</span> { [] }
-  <span class="ruby-identifier">subscriber</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">nest</span> { [] }
+  <span class="ruby-identifier">supplier</span>, <span class="ruby-identifier">subscriber</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">array</span>, <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">array</span>
 
   <span class="ruby-identifier">last_link</span>, <span class="ruby-identifier">auto_link</span> = <span class="ruby-string">&#39;&#39;</span>, <span class="ruby-value">0</span>
 
@@ -1217,7 +1216,7 @@ configuration files.</p>
 
           
           <div class="method-source-code" id="reset-source">
-            <pre><span class="ruby-comment"># File lib/lingo.rb, line 304</span>
+            <pre><span class="ruby-comment"># File lib/lingo.rb, line 303</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">reset</span>(<span class="ruby-identifier">close</span> = <span class="ruby-keyword">true</span>)
   <span class="ruby-identifier">dictionaries</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">i</span>.<span class="ruby-identifier">close</span> } <span class="ruby-keyword">if</span> <span class="ruby-identifier">close</span>
   <span class="ruby-ivar">@dictionaries</span>, <span class="ruby-ivar">@attendees</span> = [], []
@@ -1252,7 +1251,7 @@ configuration files.</p>
 
           
           <div class="method-source-code" id="start-source">
-            <pre><span class="ruby-comment"># File lib/lingo.rb, line 300</span>
+            <pre><span class="ruby-comment"># File lib/lingo.rb, line 299</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">start</span>
   <span class="ruby-ivar">@attendees</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">control</span>(<span class="ruby-value">:TALK</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -1325,7 +1324,7 @@ configuration files.</p>
 
           
           <div class="method-source-code" id="warn-source">
-            <pre><span class="ruby-comment"># File lib/lingo.rb, line 310</span>
+            <pre><span class="ruby-comment"># File lib/lingo.rb, line 309</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">warn</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">msg</span>)
   <span class="ruby-identifier">config</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">msg</span>)
 <span class="ruby-keyword">end</span></pre>
