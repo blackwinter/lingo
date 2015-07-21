@@ -176,10 +176,17 @@ learned to    read/write Gzip-compressed files (file extension
 learned to recognize <code>0</code> in the pattern to match    number
 tokens.</p>
 </li><li>
+<p>Fixed <a
+href="Lingo/Attendee/TextReader.html">Lingo::Attendee::TextReader</a> to
+recognize BOM in input files; does not    apply to input read from
+<code>STDIN</code>.</p>
+</li><li>
 <p>Fixed regression introduced in 1.8.6 where <a
 href="Lingo/Attendee/Debugger.html">Lingo::Attendee::Debugger</a> would   
 no longer work immediately behind <a
 href="Lingo/Attendee/TextReader.html">Lingo::Attendee::TextReader</a>.</p>
+</li><li>
+<p>Fixed <code>lingoctl</code> copy commands when overwriting existing files.</p>
 </li><li>
 <p>Refactored <a
 href="Lingo/Database/Crypter.html">Lingo::Database::Crypter</a> into a
@@ -220,10 +227,7 @@ longer removes line endings; option <code>chomp</code>    is obsolete.</p>
 passes byte offset to the following attendee.</p>
 </li><li>
 <p><a href="Lingo/Attendee/Tokenizer.html">Lingo::Attendee::Tokenizer</a>
-records token&#39;s byte offset.</p>
-</li><li>
-<p><a href="Lingo/Attendee/Tokenizer.html">Lingo::Attendee::Tokenizer</a>
-records token&#39;s sequence position.</p>
+records token&#39;s position and byte offset.</p>
 </li><li>
 <p><a href="Lingo/Attendee/Tokenizer.html">Lingo::Attendee::Tokenizer</a>
 learned <code>skip-tags</code> option to skip over    specified tags&#39;
