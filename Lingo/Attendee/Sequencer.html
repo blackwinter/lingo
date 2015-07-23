@@ -266,10 +266,10 @@
         <span class="ruby-identifier">find_seq</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">arg</span>)
         <span class="ruby-identifier">rewind</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">skip</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
       <span class="ruby-keyword">else</span>
-        <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">tok</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">n</span> = <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">multiword_size</span>(<span class="ruby-ivar">@mwc</span>)
-          <span class="ruby-identifier">n</span>.<span class="ruby-identifier">times</span> { <span class="ruby-identifier">iter</span>.<span class="ruby-identifier">next</span> }
-          <span class="ruby-identifier">skip</span> = <span class="ruby-identifier">idx</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
-        <span class="ruby-keyword">end</span>
+        <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">each_lex</span>(<span class="ruby-ivar">@mwc</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">lex</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">lex</span>.<span class="ruby-identifier">form</span>.<span class="ruby-identifier">count</span>(<span class="ruby-string">&#39; &#39;</span>).<span class="ruby-identifier">succ</span>.<span class="ruby-identifier">times</span> { <span class="ruby-identifier">iter</span>.<span class="ruby-identifier">next</span> }
+          <span class="ruby-keyword">break</span> <span class="ruby-identifier">skip</span> = <span class="ruby-identifier">idx</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+        } <span class="ruby-keyword">unless</span> <span class="ruby-identifier">tok</span>
 
         <span class="ruby-identifier">buf</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">obj</span>
         <span class="ruby-identifier">map</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">att</span>
@@ -366,8 +366,12 @@
 
         <span class="ruby-identifier">_tok</span> = <span class="ruby-keyword">nil</span>; <span class="ruby-identifier">args</span>.<span class="ruby-identifier">clear</span>
 
-        <span class="ruby-identifier">_cls</span>.<span class="ruby-identifier">each_with_index</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">wc</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">_tok</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">buf</span>[<span class="ruby-identifier">pos</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">i</span>].<span class="ruby-identifier">token</span>
-          <span class="ruby-identifier">args</span>[<span class="ruby-identifier">i</span>] = <span class="ruby-identifier">buf</span>[<span class="ruby-identifier">pos</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">i</span>].<span class="ruby-identifier">get_form</span>(<span class="ruby-identifier">wc</span>) <span class="ruby-keyword">or</span> <span class="ruby-keyword">break</span> } <span class="ruby-keyword">or</span> <span class="ruby-keyword">next</span>
+        <span class="ruby-identifier">_cls</span>.<span class="ruby-identifier">each_with_index</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">wc</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">obj</span> = <span class="ruby-identifier">buf</span>[<span class="ruby-identifier">pos</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">i</span>];<span class="ruby-identifier">_tok</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">token</span>
+
+          <span class="ruby-identifier">args</span>[<span class="ruby-identifier">i</span>] = <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Word</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">lexicals</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">lex</span><span class="ruby-operator">|</span>
+            <span class="ruby-keyword">break</span> <span class="ruby-identifier">lex</span>.<span class="ruby-identifier">form</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">lex</span>.<span class="ruby-identifier">attr</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">wc</span> } <span class="ruby-operator">:</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">form</span> <span class="ruby-keyword">or</span> <span class="ruby-keyword">break</span>
+        } <span class="ruby-keyword">or</span> <span class="ruby-keyword">next</span>
 
         <span class="ruby-identifier">forms</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">_str</span>, <span class="ruby-identifier">_tok</span>,
           <span class="ruby-identifier">fmt</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/\d/</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">fmt</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39;%0$s&#39;</span>, <span class="ruby-identifier">_str</span>) <span class="ruby-operator">%</span> <span class="ruby-identifier">args</span> <span class="ruby-operator">:</span>

@@ -143,7 +143,7 @@
         
         <div class="method-heading">
           <span class="method-name">bom_encoding</span><span
-            class="method-args">(m = 'r', e = @encoding)</span>
+            class="method-args">(mode = 'r', encoding = @encoding)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -159,8 +159,9 @@
           
           <div class="method-source-code" id="bom_encoding-source">
             <pre><span class="ruby-comment"># File lib/lingo/text_utils.rb, line 83</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">bom_encoding</span>(<span class="ruby-identifier">m</span> = <span class="ruby-string">&#39;r&#39;</span>, <span class="ruby-identifier">e</span> = <span class="ruby-ivar">@encoding</span>)
-  <span class="ruby-operator">!</span><span class="ruby-identifier">m</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&#39;w&#39;</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">start_with?</span>(<span class="ruby-string">&#39;UTF-&#39;</span>) <span class="ruby-operator">?</span> <span class="ruby-node">&quot;BOM|#{e}&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">e</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">bom_encoding</span>(<span class="ruby-identifier">mode</span> = <span class="ruby-string">&#39;r&#39;</span>, <span class="ruby-identifier">encoding</span> = <span class="ruby-ivar">@encoding</span>)
+  (<span class="ruby-identifier">mode</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&#39;r&#39;</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">mode</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&#39;+&#39;</span>)) <span class="ruby-operator">&amp;&amp;</span>
+    <span class="ruby-identifier">encoding</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">start_with?</span>(<span class="ruby-string">&#39;UTF-&#39;</span>) <span class="ruby-operator">?</span> <span class="ruby-node">&quot;BOM|#{encoding}&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">encoding</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

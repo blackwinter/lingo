@@ -331,7 +331,7 @@
     <span class="ruby-identifier">pos</span> = <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">position_and_offset</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@pos</span>
 
     <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Token</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">forward_vector</span>(<span class="ruby-identifier">obj</span>, <span class="ruby-identifier">pos</span>) <span class="ruby-operator">:</span>
-      <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">get_class</span>(<span class="ruby-ivar">@lex</span>).<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">lex</span><span class="ruby-operator">|</span> <span class="ruby-identifier">forward_vector</span>(<span class="ruby-identifier">lex</span>, <span class="ruby-identifier">pos</span>, <span class="ruby-identifier">lex</span>.<span class="ruby-identifier">src</span>) }
+      <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">each_lex</span>(<span class="ruby-ivar">@lex</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">lex</span><span class="ruby-operator">|</span> <span class="ruby-identifier">forward_vector</span>(<span class="ruby-identifier">lex</span>, <span class="ruby-identifier">pos</span>, <span class="ruby-identifier">lex</span>.<span class="ruby-identifier">src</span>) }
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -436,14 +436,14 @@
           <div class="method-source-code" id="forward_dict-source">
             <pre><span class="ruby-comment"># File lib/lingo/attendee/vector_filter.rb, line 171</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">forward_dict</span>(<span class="ruby-identifier">obj</span>, <span class="ruby-identifier">sep</span> = <span class="ruby-constant">DEFAULT_GENDER_SEPARATOR</span>)
-  <span class="ruby-identifier">vectors</span> = <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">get_class</span>(<span class="ruby-ivar">@lex</span>).<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">lex</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">vectors</span> = <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">each_lex</span>(<span class="ruby-ivar">@lex</span>).<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">lex</span><span class="ruby-operator">|</span>
     <span class="ruby-node">&quot;#{lex.form} ##{lex.attr}&quot;</span>.<span class="ruby-identifier">tap</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">str</span><span class="ruby-operator">|</span>
       <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">sep</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">lex</span>.<span class="ruby-identifier">gender</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">lex</span>.<span class="ruby-identifier">gender</span>
     }
   }
 
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">vectors</span>.<span class="ruby-identifier">empty?</span>
-    <span class="ruby-identifier">vec</span> = <span class="ruby-ivar">@norm</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">lexicals</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">form</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">form</span>
+    <span class="ruby-identifier">vec</span> = <span class="ruby-ivar">@norm</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">lex_form</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">form</span>
     <span class="ruby-identifier">forward_vector</span>(<span class="ruby-node">&quot;#{vec}#{@dict}#{vectors.join(&#39; &#39;)}&quot;</span>)
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>

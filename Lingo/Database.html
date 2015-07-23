@@ -1193,6 +1193,9 @@
 
   <span class="ruby-identifier">args</span> = <span class="ruby-keyword">nil</span>
 
+  <span class="ruby-identifier">wac</span> = <span class="ruby-constant">Language</span><span class="ruby-operator">::</span><span class="ruby-constant">WA_COMPOUND</span>
+  <span class="ruby-identifier">lac</span> = <span class="ruby-constant">Language</span><span class="ruby-operator">::</span><span class="ruby-constant">LA_COMPOUND</span>
+
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">inflect</span> = <span class="ruby-identifier">config</span>[<span class="ruby-string">&#39;inflect&#39;</span>]
     <span class="ruby-identifier">inflect</span>, <span class="ruby-identifier">wc</span> = <span class="ruby-identifier">inflect</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">true</span> <span class="ruby-operator">?</span> <span class="ruby-node">%w[s e]</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">inflect</span>.<span class="ruby-identifier">split</span>(<span class="ruby-constant">SEP_RE</span>), <span class="ruby-string">&#39;a&#39;</span>
 
@@ -1206,15 +1209,23 @@
 
   [<span class="ruby-identifier">sep</span> = <span class="ruby-string">&#39; &#39;</span>, <span class="ruby-identifier">config</span>[<span class="ruby-string">&#39;hyphenate&#39;</span>] <span class="ruby-operator">&amp;&amp;</span> [<span class="ruby-identifier">sep</span>, <span class="ruby-string">&#39;-&#39;</span>], <span class="ruby-identifier">lambda</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">form</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">word</span> = <span class="ruby-identifier">dic</span>.<span class="ruby-identifier">find_word</span>(<span class="ruby-identifier">form</span>)
-    <span class="ruby-identifier">word</span>.<span class="ruby-identifier">unknown?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">gra</span>.<span class="ruby-identifier">find_compound</span>(<span class="ruby-identifier">form</span>).<span class="ruby-identifier">compo_norm</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">word</span>.<span class="ruby-identifier">norm</span>
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">word</span>.<span class="ruby-identifier">unknown?</span>
+      <span class="ruby-identifier">comp</span> = <span class="ruby-identifier">gra</span>.<span class="ruby-identifier">find_compound</span>(<span class="ruby-identifier">form</span>)
+
+      <span class="ruby-identifier">comp</span>.<span class="ruby-identifier">attr</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">wac</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">comp</span>.<span class="ruby-identifier">lex_form</span>(<span class="ruby-identifier">lac</span>) <span class="ruby-operator">||</span>
+        (<span class="ruby-identifier">comp</span>.<span class="ruby-identifier">identified?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">comp</span>.<span class="ruby-identifier">lex_form</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">comp</span>.<span class="ruby-identifier">form</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">word</span>.<span class="ruby-identifier">identified?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">word</span>.<span class="ruby-identifier">lex_form</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">word</span>.<span class="ruby-identifier">form</span>
+    <span class="ruby-keyword">end</span>
   }, <span class="ruby-identifier">inflect</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">lambda</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">forms</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">inflectables</span> = []
 
     <span class="ruby-identifier">forms</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">form</span><span class="ruby-operator">|</span>
       <span class="ruby-identifier">word</span> = <span class="ruby-identifier">dic</span>.<span class="ruby-identifier">find_word</span>(<span class="ruby-identifier">word_form</span> = <span class="ruby-identifier">form</span>[<span class="ruby-identifier">re</span>])
 
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">word</span>.<span class="ruby-identifier">identified?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">lexical</span> = <span class="ruby-identifier">word</span>.<span class="ruby-identifier">get_class</span>(<span class="ruby-identifier">wc</span>).<span class="ruby-identifier">first</span>
-        <span class="ruby-identifier">inflectables</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">form</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">form</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">lexical</span>.<span class="ruby-identifier">form</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">word</span>.<span class="ruby-identifier">identified?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">_form</span> = <span class="ruby-identifier">word</span>.<span class="ruby-identifier">lex_form</span>(<span class="ruby-identifier">wc</span>)
+        <span class="ruby-identifier">inflectables</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">form</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">form</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">_form</span>
       <span class="ruby-keyword">else</span>
         <span class="ruby-keyword">unless</span> <span class="ruby-identifier">inflectables</span>.<span class="ruby-identifier">empty?</span>
           <span class="ruby-identifier">word</span> = <span class="ruby-identifier">gra</span>.<span class="ruby-identifier">find_compound_head</span>(<span class="ruby-identifier">word_form</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">word</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">word</span>.<span class="ruby-identifier">unknown?</span>

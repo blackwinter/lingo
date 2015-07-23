@@ -166,7 +166,7 @@
             <pre><span class="ruby-comment"># File lib/lingo/attendee/variator.rb, line 76</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">init</span>
   <span class="ruby-ivar">@marker</span> = <span class="ruby-identifier">get_key</span>(<span class="ruby-string">&#39;marker&#39;</span>, <span class="ruby-string">&#39;*&#39;</span>)
-  <span class="ruby-ivar">@max</span>    = <span class="ruby-identifier">get_key</span>(<span class="ruby-string">&#39;max-var&#39;</span>, <span class="ruby-identifier">max</span> = <span class="ruby-value">10000</span>).<span class="ruby-identifier">to_i</span>
+  <span class="ruby-ivar">@max</span>    = <span class="ruby-identifier">get_int</span>(<span class="ruby-string">&#39;max-var&#39;</span>, <span class="ruby-identifier">max</span> = <span class="ruby-value">10000</span>)
   <span class="ruby-ivar">@max</span>    = <span class="ruby-identifier">max</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@max</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
   <span class="ruby-ivar">@var</span>    = <span class="ruby-identifier">get_key</span>(<span class="ruby-string">&#39;variations&#39;</span>)
 
