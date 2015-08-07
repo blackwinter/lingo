@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>module Lingo::TextUtils - lingo Application documentation (v1.8.6)</title>
+<title>module Lingo::TextUtils - lingo Application documentation (v1.8.7)</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -74,6 +74,8 @@
     <li ><a href="#method-i-open_stdin">#open_stdin</a>
     
     <li ><a href="#method-i-open_stdout">#open_stdout</a>
+    
+    <li ><a href="#method-i-set_encoding">#set_encoding</a>
     
     <li ><a href="#method-i-set_ext">#set_ext</a>
     
@@ -158,7 +160,7 @@
 
           
           <div class="method-source-code" id="bom_encoding-source">
-            <pre><span class="ruby-comment"># File lib/lingo/text_utils.rb, line 83</span>
+            <pre><span class="ruby-comment"># File lib/lingo/text_utils.rb, line 88</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">bom_encoding</span>(<span class="ruby-identifier">mode</span> = <span class="ruby-string">&#39;r&#39;</span>, <span class="ruby-identifier">encoding</span> = <span class="ruby-ivar">@encoding</span>)
   (<span class="ruby-identifier">mode</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&#39;r&#39;</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">mode</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&#39;+&#39;</span>)) <span class="ruby-operator">&amp;&amp;</span>
     <span class="ruby-identifier">encoding</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">start_with?</span>(<span class="ruby-string">&#39;UTF-&#39;</span>) <span class="ruby-operator">?</span> <span class="ruby-node">&quot;BOM|#{encoding}&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">encoding</span>
@@ -303,7 +305,7 @@
           <div class="method-source-code" id="open_stdin-source">
             <pre><span class="ruby-comment"># File lib/lingo/text_utils.rb, line 48</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">open_stdin</span>
-  <span class="ruby-identifier">stdin</span> = <span class="ruby-identifier">lingo</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">stdin</span>.<span class="ruby-identifier">set_encoding</span>(<span class="ruby-ivar">@encoding</span>)
+  <span class="ruby-identifier">stdin</span> = <span class="ruby-identifier">set_encoding</span>(<span class="ruby-identifier">lingo</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">stdin</span>)
   <span class="ruby-ivar">@progress</span> <span class="ruby-operator">?</span> <span class="ruby-constant">StringIO</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">stdin</span>.<span class="ruby-identifier">read</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">stdin</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -337,7 +339,41 @@
           <div class="method-source-code" id="open_stdout-source">
             <pre><span class="ruby-comment"># File lib/lingo/text_utils.rb, line 53</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">open_stdout</span>
-  <span class="ruby-identifier">lingo</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">stdout</span>.<span class="ruby-identifier">set_encoding</span>(<span class="ruby-ivar">@encoding</span>)
+  <span class="ruby-identifier">set_encoding</span>(<span class="ruby-identifier">lingo</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">stdout</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-set_encoding" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_encoding</span><span
+            class="method-args">(io, encoding = @encoding)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_encoding-source">
+            <pre><span class="ruby-comment"># File lib/lingo/text_utils.rb, line 83</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_encoding</span>(<span class="ruby-identifier">io</span>, <span class="ruby-identifier">encoding</span> = <span class="ruby-ivar">@encoding</span>)
+  <span class="ruby-identifier">io</span>.<span class="ruby-identifier">set_encoding</span>(<span class="ruby-identifier">encoding</span>)
+  <span class="ruby-identifier">io</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

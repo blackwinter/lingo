@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Lingo::Database - lingo Application documentation (v1.8.6)</title>
+<title>class Lingo::Database - lingo Application documentation (v1.8.7)</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -98,8 +98,6 @@
     
     <li ><a href="#method-i-_val">#_val</a>
     
-    <li ><a href="#method-i-backend_from_file">#backend_from_file</a>
-    
     <li ><a href="#method-i-close">#close</a>
     
     <li ><a href="#method-i-closed-3F">#closed?</a>
@@ -125,8 +123,6 @@
     <li ><a href="#method-i-uptodate-21">#uptodate!</a>
     
     <li ><a href="#method-i-uptodate-3F">#uptodate?</a>
-    
-    <li ><a href="#method-i-use_backend">#use_backend</a>
     
     <li ><a href="#method-i-warn">#warn</a>
     
@@ -276,12 +272,25 @@
     <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir_p</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-ivar">@stofile</span>))
   <span class="ruby-keyword">rescue</span> <span class="ruby-constant">SourceFileNotFoundError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">err</span>
     <span class="ruby-ivar">@stofile</span> = <span class="ruby-identifier">skip_ext</span> = <span class="ruby-identifier">err</span>.<span class="ruby-identifier">id</span>
-    <span class="ruby-identifier">backend</span> = <span class="ruby-identifier">backend_from_file</span>(<span class="ruby-ivar">@stofile</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">err</span>.<span class="ruby-identifier">name</span>
+
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">err</span>.<span class="ruby-identifier">name</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">name</span> = <span class="ruby-constant">BACKEND_BY_EXT</span>[<span class="ruby-constant">File</span>.<span class="ruby-identifier">extname</span>(<span class="ruby-ivar">@stofile</span>)]
+        <span class="ruby-identifier">backend</span> = <span class="ruby-identifier">get_backend</span>(<span class="ruby-identifier">name</span>, <span class="ruby-ivar">@stofile</span>)
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">BackendNotFoundError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@stofile</span>)
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">rescue</span> <span class="ruby-constant">NoWritableStoreError</span>
     <span class="ruby-identifier">backend</span> = <span class="ruby-constant">HashStore</span>
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-identifier">use_backend</span>(<span class="ruby-identifier">backend</span>, <span class="ruby-identifier">skip_ext</span>)
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">backend</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">get_backend</span>(<span class="ruby-constant">ENV</span>[<span class="ruby-string">&#39;LINGO_BACKEND&#39;</span>])
+    <span class="ruby-constant">BACKENDS</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">name</span><span class="ruby-operator">|</span> <span class="ruby-identifier">backend</span> = <span class="ruby-identifier">get_backend</span>(<span class="ruby-identifier">name</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-keyword">true</span>) }
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">extend</span>(<span class="ruby-ivar">@backend</span> = <span class="ruby-identifier">backend</span> <span class="ruby-operator">||</span> <span class="ruby-constant">HashStore</span>)
+
+  <span class="ruby-ivar">@stofile</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">store_ext</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">skip_ext</span> <span class="ruby-operator">||</span> <span class="ruby-operator">!</span><span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:store_ext</span>)
 
   <span class="ruby-identifier">convert</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">uptodate?</span>
 <span class="ruby-keyword">end</span></pre>
@@ -392,7 +401,7 @@
 
           
           <div class="method-source-code" id="5B-5D-source">
-            <pre><span class="ruby-comment"># File lib/lingo/database.rb, line 119</span>
+            <pre><span class="ruby-comment"># File lib/lingo/database.rb, line 132</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-identifier">key</span>)
   <span class="ruby-identifier">val</span> = <span class="ruby-identifier">_val</span>(<span class="ruby-identifier">key</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">closed?</span>
   <span class="ruby-identifier">val</span>.<span class="ruby-identifier">split</span>(<span class="ruby-constant">FLD_SEP</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">val</span>
@@ -426,7 +435,7 @@
 
           
           <div class="method-source-code" id="5B-5D-3D-source">
-            <pre><span class="ruby-comment"># File lib/lingo/database.rb, line 124</span>
+            <pre><span class="ruby-comment"># File lib/lingo/database.rb, line 137</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">[]=</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">closed?</span>
 
@@ -465,7 +474,7 @@
 
           
           <div class="method-source-code" id="close-source">
-            <pre><span class="ruby-comment"># File lib/lingo/database.rb, line 102</span>
+            <pre><span class="ruby-comment"># File lib/lingo/database.rb, line 115</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">close</span>
   <span class="ruby-identifier">_close</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">closed?</span>
   <span class="ruby-ivar">@db</span> = <span class="ruby-keyword">nil</span>
@@ -501,7 +510,7 @@
 
           
           <div class="method-source-code" id="closed-3F-source">
-            <pre><span class="ruby-comment"># File lib/lingo/database.rb, line 89</span>
+            <pre><span class="ruby-comment"># File lib/lingo/database.rb, line 102</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">closed?</span>
   <span class="ruby-operator">!</span><span class="ruby-ivar">@db</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">_closed?</span>
 <span class="ruby-keyword">end</span></pre>
@@ -534,7 +543,7 @@
 
           
           <div class="method-source-code" id="each-source">
-            <pre><span class="ruby-comment"># File lib/lingo/database.rb, line 115</span>
+            <pre><span class="ruby-comment"># File lib/lingo/database.rb, line 128</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">each</span>
   <span class="ruby-identifier">_each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span><span class="ruby-operator">|</span> <span class="ruby-keyword">yield</span> <span class="ruby-identifier">_encode!</span>(<span class="ruby-identifier">key</span>), <span class="ruby-identifier">_encode!</span>(<span class="ruby-identifier">val</span>) } <span class="ruby-keyword">unless</span> <span class="ruby-identifier">closed?</span>
 <span class="ruby-keyword">end</span></pre>
@@ -567,7 +576,7 @@
 
           
           <div class="method-source-code" id="open-source">
-            <pre><span class="ruby-comment"># File lib/lingo/database.rb, line 93</span>
+            <pre><span class="ruby-comment"># File lib/lingo/database.rb, line 106</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">open</span>
   <span class="ruby-ivar">@db</span> = <span class="ruby-identifier">_open</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">closed?</span>
   <span class="ruby-identifier">block_given?</span> <span class="ruby-operator">?</span> <span class="ruby-keyword">yield</span>(<span class="ruby-keyword">self</span>) <span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>
@@ -605,7 +614,7 @@
 
           
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/lingo/database.rb, line 109</span>
+            <pre><span class="ruby-comment"># File lib/lingo/database.rb, line 122</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_h</span>
   <span class="ruby-identifier">hash</span> = {}
   <span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span><span class="ruby-operator">|</span> <span class="ruby-identifier">hash</span>[<span class="ruby-identifier">key</span>.<span class="ruby-identifier">freeze</span>] = <span class="ruby-identifier">val</span> }
@@ -640,7 +649,7 @@
 
           
           <div class="method-source-code" id="warn-source">
-            <pre><span class="ruby-comment"># File lib/lingo/database.rb, line 134</span>
+            <pre><span class="ruby-comment"># File lib/lingo/database.rb, line 147</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">warn</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">msg</span>)
   <span class="ruby-identifier">lingo</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">msg</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -962,42 +971,6 @@
       </div>
 
     
-      <div id="method-i-backend_from_file" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">backend_from_file</span><span
-            class="method-args">(file)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="backend_from_file-source">
-            <pre><span class="ruby-comment"># File lib/lingo/database.rb, line 155</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">backend_from_file</span>(<span class="ruby-identifier">file</span>)
-  <span class="ruby-identifier">ext</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">extname</span>(<span class="ruby-identifier">file</span>)
-
-  <span class="ruby-identifier">mod</span> = <span class="ruby-constant">BACKEND_BY_EXT</span>[<span class="ruby-identifier">ext</span>] <span class="ruby-keyword">or</span> <span class="ruby-identifier">raise</span> <span class="ruby-constant">BackendNotFoundError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file</span>)
-  <span class="ruby-identifier">get_backend</span>(<span class="ruby-identifier">mod</span>) <span class="ruby-keyword">or</span> <span class="ruby-identifier">raise</span> <span class="ruby-constant">BackendNotAvailableError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">mod</span>, <span class="ruby-identifier">file</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
       <div id="method-i-config_hash" class="method-detail ">
         
         <div class="method-heading">
@@ -1130,7 +1103,7 @@
         
         <div class="method-heading">
           <span class="method-name">get_backend</span><span
-            class="method-args">(mod)</span>
+            class="method-args">(name, file = nil, relax = false)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -1145,10 +1118,14 @@
 
           
           <div class="method-source-code" id="get_backend-source">
-            <pre><span class="ruby-comment"># File lib/lingo/database.rb, line 150</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_backend</span>(<span class="ruby-identifier">mod</span>)
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-node">&quot;#{mod}Store&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_defined?</span>(<span class="ruby-identifier">mod</span>)
-<span class="ruby-keyword">rescue</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-constant">NameError</span>
+            <pre><span class="ruby-comment"># File lib/lingo/database.rb, line 153</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_backend</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">file</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">relax</span> = <span class="ruby-keyword">false</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">name</span>
+
+  <span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">name</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-node">&quot;#{name}Store&quot;</span>)
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-constant">NameError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">err</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">BackendNotAvailableError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">file</span>, <span class="ruby-identifier">err</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">relax</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -1356,45 +1333,6 @@
 
   <span class="ruby-identifier">sys_key</span> = <span class="ruby-identifier">open</span> { <span class="ruby-ivar">@db</span>[<span class="ruby-constant">SYS_KEY</span>] } <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">file</span>)
   <span class="ruby-identifier">sys_key</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-operator">!</span><span class="ruby-identifier">src</span>.<span class="ruby-identifier">exist?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">sys_key</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@source_key</span>.<span class="ruby-identifier">call</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-use_backend" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">use_backend</span><span
-            class="method-args">(backend = nil, skip_ext = false)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="use_backend-source">
-            <pre><span class="ruby-comment"># File lib/lingo/database.rb, line 140</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">use_backend</span>(<span class="ruby-identifier">backend</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">skip_ext</span> = <span class="ruby-keyword">false</span>)
-  [<span class="ruby-constant">ENV</span>[<span class="ruby-string">&#39;LINGO_BACKEND&#39;</span>], <span class="ruby-operator">*</span><span class="ruby-constant">BACKENDS</span>].<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">mod</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">backend</span> = <span class="ruby-identifier">get_backend</span>(<span class="ruby-identifier">mod</span>) <span class="ruby-keyword">and</span> <span class="ruby-keyword">break</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">mod</span>
-  } <span class="ruby-keyword">unless</span> <span class="ruby-identifier">backend</span>
-
-  <span class="ruby-identifier">extend</span>(<span class="ruby-ivar">@backend</span> = <span class="ruby-identifier">backend</span> <span class="ruby-operator">||</span> <span class="ruby-constant">HashStore</span>)
-
-  <span class="ruby-ivar">@stofile</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">store_ext</span> <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">skip_ext</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:store_ext</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
